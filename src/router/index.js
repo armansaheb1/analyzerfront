@@ -47,7 +47,7 @@ const routes = [
       },
       {
         path: 'news',
-        component: () => import( '../components/Pages/Index.vue')
+        component: () => import( '../components/Pages/News.vue')
       },
       {
         path: 'services/:slug',

@@ -32,7 +32,7 @@
           <a style="position: relative; text-decoration: none; color: #333; top: 12px; font-size: 8px; font-weight: bold; width: 100%;display: block;; width: 130%; margin-left: -15%;">AI Writer</a>
           </div>
         </a>
-        <a style="text-decoration: none;"  class="svgbox"  >
+        <a style="text-decoration: none;" href="/news" class="svgbox"  >
           
           <div style="height: 35px;width: 35px;border-radius: 50%;background-color: #97caab;margin:auto " :style="[roout == '/news' ? {'height': '45px','width': '45px','border-radius': '50%','margin':'auto', 'padding': '3px'} : {'height': '35px','width': '35px','border-radius': '50%','margin':'auto'}]">
             <svg fill="#ffffff" style="" :height="[roout == '/news' ? 24 : 21]" :width="[roout == '/news' ? 24 : 21]" version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" 
