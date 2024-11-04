@@ -1,5 +1,4 @@
 <template>
-  <div style="width: 100%;height:40px;background: white" ></div>
   <div style="width: 100%; height: 150px; background-color: white; border-radius:  0 0 35px 35px ;padding: 0;">
     <div style="width: 35%; float: left;">
       <img src="/bot.png" style="height: 130px; margin: 10px;" alt="">
@@ -30,8 +29,10 @@
       </div>
       <div v-else v-for="item in reports" >
     <a  :style="`display: block;text-decoration:none;font-size: 16px; color: #333; background-color: white;  padding: 8px; margin-top: 0px;border-radius: 10px; cursor: pointer;width: 97%; margin:1.5%; padding: 1.5% ;box-sizing: border-box;`">
-
-      <div style="width: 100%; float: left; text-align: right; white-space: normal; padding:2%">
+      <div style="width: 30%; height: 90%; float: right;">
+        <img :src="item.pic" style="width: 100%; border-radius: 10px; aspect-ratio: 1/1;" alt="">
+      </div>
+      <div style="width: 70%; float: left; text-align: right; white-space: normal; padding:2%">
         <h3 style="font-size: 14px; font-weight: bold;">{{ item.title }}</h3>
         <p style="font-size: 10px;">{{ item.text }}</p>
       </div>
@@ -95,7 +96,6 @@ export default {
           return
         }else{
           this.reports = response
-          console.log(response)
         }
         
       })

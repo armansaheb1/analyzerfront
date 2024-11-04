@@ -1,4 +1,7 @@
 <template>
+  <div @click="!$store.state.adminsidebar" v-if="$store.state.adminsidebar" :style="`background-color: rgba(0, 0, 0, 0.5);left: 0;width: 100%;height: 100%;position: fixed;z-index: 11000000`">
+    
+  </div>
   <router-view/>
 </template>
 <script>
@@ -26,6 +29,7 @@ export default {
     if(AdminToken){
       axios.defaults.headers.common['Authorization'] = "Token " + AdminToken
       this.$store.state.isAdmin = true
+      this.$store.state.isAuthenticated = true
     }
     else{
       this.$store.state.isAdmin = false
@@ -36,6 +40,9 @@ export default {
 
 
 <style>
+input {
+  text-align: right
+}
 body{
   margin: 0
 }

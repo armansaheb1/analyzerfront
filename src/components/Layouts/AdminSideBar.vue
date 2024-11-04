@@ -1,10 +1,12 @@
 <template>
-  <div @click="!$store.state.adminsidebar" v-if="$store.state.adminsidebar" :style="`background-color: rgba(0, 0, 0, 0.5);left: 0;width: ${width - 200}px;height: 100%;position: fixed;z-index: 11000000;margin-top: 5px`">
-    
-  </div>
-  <nav v-if="$store.state.adminsidebar" :style="`padding: 0;z-index: 100000;position:fixed;top: 0;right: 0;width: 200px; height: ${height}px; background-color: #555555;box-sizing: border-box;padding-top: 60px; text-align: right`">
+  
+  <nav v-if="$store.state.adminsidebar" :style="`padding: 0;z-index: 11000001;position:fixed;top: 0;right: 0;width: 200px; height: ${height}px; background-color: #555555;box-sizing: border-box;padding-top: 0px; text-align: right`">
+    <a style="width: 100%;height: 65px; font-size: 20px;padding:20px; padding-top:20px; box-sizing: border-box; color: white;text-decoration: none;display: block;" @click="$store.state.adminsidebar= !$store.state.adminsidebar"> <i class="fa-solid fa-bars" style="font-size: 18px;float: right; color: white; border: solid white 3px; padding: 8px; margin-top: -8px;border-radius: 50%; cursor: pointer;"></i></a>
   <a class="sideitem" href="/admin/" style="width: 100%;height: 65px; font-size: 20px;padding:20px; padding-top:20px; box-sizing: border-box; color: white;text-decoration: none;display: block;">خانه</a>  
-  <a class="sideitem" href="/admin/manage-services" style="width: 100%;height: 65px; font-size: 20px;padding:20px; padding-top:20px; box-sizing: border-box; color: white;text-decoration: none;display: block;">سرویس  </a>  
+  <a class="sideitem" href="/admin/manage-category" style="width: 100%;height: 65px; font-size: 18px;padding:20px; padding-top:20px; box-sizing: border-box; color: white;text-decoration: none;display: block;">دسته بندی ها  </a>  
+  <a class="sideitem" href="/admin/manage-services" style="width: 100%;height: 65px; font-size: 18px;padding:20px; padding-top:20px; box-sizing: border-box; color: white;text-decoration: none;display: block;">سرویس  </a>  
+  <a class="sideitem" href="/admin/manage-news-services" style="width: 100%;height: 65px; font-size: 18px;padding:20px; padding-top:20px; box-sizing: border-box; color: white;text-decoration: none;display: block;">سرویس های خبر </a>  
+  <a class="sideitem" href="/admin/manage-tone-format" style="width: 100%;height: 65px; font-size: 18px;padding:20px; padding-top:20px; box-sizing: border-box; color: white;text-decoration: none;display: block;">لحن و فرمت </a>  
   </nav>
   </template>
   

@@ -21,11 +21,23 @@ const routes = [
         component: () => import( '../components/AdminPages/Index.vue')
       },
       {
+        path: 'manage-category',
+        component: () => import( '../components/AdminPages/Category.vue')
+      },
+      {
         path: 'manage-services',
         component: () => import( '../components/AdminPages/ManageServices.vue')
       },
       {
-        path: 'edit-services/:id',
+        path: 'manage-tone-format',
+        component: () => import( '../components/AdminPages/ToneFormat.vue')
+      },
+      {
+        path: 'manage-news-services',
+        component: () => import( '../components/AdminPages/ManageNewsServices.vue')
+      },
+      {
+        path: 'edit-services/:slug',
         component: () => import( '../components/AdminPages/EditServices.vue')
       },
     ]
@@ -37,26 +49,62 @@ const routes = [
     // which is lazy-loaded when the route is visited.
     component: () => import( '../components/AdminPages/Login.vue')
   },
+  
+  {
+    path: '/register',
+    // route level code-splitting
+    // this generates a separate chunk (about.[hash].js) for this route
+    // which is lazy-loaded when the route is visited.
+    component: () => import( '../components/Pages/Register.vue')
+  },
   {
     path: '/',
     component: Layout,
     children: [
       {
+    path: '/login',
+    // route level code-splitting
+    // this generates a separate chunk (about.[hash].js) for this route
+    // which is lazy-loaded when the route is visited.
+    component: () => import( '../components/Pages/Login.vue')
+  },
+      {
         path: '',
         component: () => import( '../components/Pages/Index.vue')
+      },
+      {
+        path: 'writer',
+        component: () => import( '../components/Pages/Writer.vue')
       },
       {
         path: 'news',
         component: () => import( '../components/Pages/News.vue')
       },
       {
+        path: 'analysis',
+        component: () => import( '../components/Pages/Analysis.vue')
+      },
+      {
+        path: 'profile',
+        component: () => import( '../components/Pages/Profile.vue')
+      },
+      {
+        path: 'news-services/:id/:service',
+        component: () => import( '../components/Pages/NewsService.vue')
+      },
+      {
         path: 'services/:slug',
         component: () => import( '../components/Pages/Service.vue')
       },
       {
-        path: 'login',
-        component: () => import( '../components/Pages/Login.vue')
+        path: 'add-keyword',
+        component: () => import( '../components/Pages/AddKeyword.vue')
       },
+      {
+        path: 'add-keyword-social',
+        component: () => import( '../components/Pages/AddKeywordSocial.vue')
+      },
+
     ]
   },
 ]

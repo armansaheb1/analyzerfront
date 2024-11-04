@@ -1,7 +1,18 @@
 <template>
+  <div style="width: 100%; height: 150px; background-color: white; border-radius:  0 0 35px 35px ;padding: 0;">
+    <div style="width: 35%; float: left;">
+      <img src="/bot.png" style="height: 130px; margin: 10px;" alt="">
+
+    </div>
+    <div style="width: 50%; float: right;text-align: right;margin: 35px 25px ">
+      <h5 style="font-weight: bold;font-family: 'vazir';font-size: 16px">ورود</h5>
+      <p style="font-family: 'vazir';font-size: 12px;"></p>
+
+    </div>
+  </div><br>
   <div style="margin: 2.5%;">
   <div class="card">
-    <div class="card-header"><h4>Log In</h4></div>
+    <div class="card-header"><h4>ورود</h4></div>
     <div class="card-body" style="text-align: left;">
       <input v-model="mobile" type="text" placeholder="mobile" class="form-control"><br>
       <input v-model="password" type="password" placeholder="Password" class="form-control"><br>
