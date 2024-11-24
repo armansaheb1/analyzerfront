@@ -1,5 +1,5 @@
 
-ate>
+<template>
   <div v-if="result">
     <div class="topright" style="padding-top: 110px">
       <div>
