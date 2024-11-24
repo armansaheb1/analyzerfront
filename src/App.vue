@@ -1,10 +1,32 @@
 <template>
-  <loading
-    :active="$store.state.isLoading"
-    :can-cancel="true"
-    :on-cancel="onCancel"
-    :is-full-page="fullPage"
-  ></loading>
+  <div
+    v-if="$store.state.isLoading"
+    style="
+      width: 100%;
+      position: fixed;
+      top: 0;
+      left: 0;
+      height: 100%;
+      z-index: 1000000000000000000000000000000000000000;
+      background: white;
+    "
+  >
+    <div class="loadinger">
+      <div></div>
+      <div></div>
+      <div></div>
+    </div>
+    <div style="position: fixed;font-size: 12px;
+  top: 50%;
+  left: 30%;
+  width: 40%;
+  text-align: center;
+  margin:auto">
+    <div>کمی صبر کنید
+ </div>
+ <div>نتیجه در حال آماده‌سازی است</div>
+  </div>
+  </div>
   <div
     @click="!$store.state.adminsidebar"
     v-if="$store.state.adminsidebar"
@@ -76,5 +98,157 @@ nav a {
 
 nav a.router-link-exact-active {
   color: #42b983;
+}
+.form-control {
+  border-radius: 0 !important;
+  border: none;
+}
+.btn {
+  font-size: 12px;
+  border-radius: 10px!important
+}
+.btn-success {
+  background: #2dca67 !important;
+  border: solid 1px #2dca67;
+}
+
+.topright {
+}
+.bottomleft {
+}
+p,
+p {
+  font-size: 9px;
+  font-weight: normal!important
+}
+
+@media only screen and (max-width: 1023px) {
+
+  ::-webkit-scrollbar {
+    width: 0px;
+    height: 0px;
+    background-color: white;
+  }
+
+  /* Track */
+  ::-webkit-scrollbar-track {
+    box-shadow: none;
+    border-radius: 10px;
+    width: 0px;
+    height: 0px;
+  }
+
+  /* Handle */
+  ::-webkit-scrollbar-thumb {
+    background: rgb(104 131 228);
+    border-radius: 10px;
+    width: 0px;
+    height: 0px;
+  }
+
+  /* Handle on hover */
+  ::-webkit-scrollbar-thumb:hover {
+    background: lightgrey;
+  }
+}
+@media only screen and (min-width: 1023px) {
+  
+  .topright {
+    width: 50%;
+    padding-top: 100px;
+    float: right;
+    padding-top: 150px;
+  }
+  .bottomleft {
+    width: 50%;
+    padding-top: 80px;
+    float: left;
+  }
+  p,
+  p {
+    font-size: 12px;
+  }
+  ::-webkit-scrollbar {
+    width: 6px;
+    height: 6px;
+    background-color: white;
+    position: absolute;
+  }
+
+  /* Track */
+  ::-webkit-scrollbar-track {
+    box-shadow: none;
+    border-radius: 10px;
+    width: 6px;
+    height: 6px;
+  }
+
+  /* Handle */
+  ::-webkit-scrollbar-thumb {
+    background: rgb(108 131 228);
+    border-radius: 10px;
+    width: 6px;
+    height: 6px;
+  }
+
+  /* Handle on hover */
+  ::-webkit-scrollbar-thumb:hover {
+    background: lightgrey;
+  }
+}
+
+/* From Uiverse.io by terenceodonoghue */
+.loadinger {
+  position: fixed;
+  top: 45%;
+  left: 50%;
+  display: flex;
+  gap: 0.625em;
+  transform: translate(-50%, -50%);
+  z-index: 1000000000000000000000;
+}
+
+.loadinger div {
+  border-radius: 50%;
+  height: 1.5em;
+  width: 1.5em;
+}
+
+.loadinger div::before {
+  content: "";
+  display: block;
+  border-radius: inherit;
+  height: inherit;
+  width: inherit;
+  background-color: inherit;
+  animation: ripple 1.8s ease-out infinite;
+  animation-delay: inherit;
+  z-index: -1;
+}
+
+.loadinger div:nth-of-type(1) {
+  background-color: #84cdfa;
+}
+
+.loadinger div:nth-of-type(2) {
+  background-color: #5ad1cd;
+  animation-delay: 0.2s;
+}
+
+.loadinger div:nth-of-type(3) {
+  background-color: #9b59b6;
+  animation-delay: 0.4s;
+}
+
+@keyframes ripple {
+  from {
+    opacity: 1;
+    transform: scale(0);
+  }
+
+  to {
+    opacity: 0;
+    transform: scale(3);
+  }
 }
 </style>

@@ -114,30 +114,5 @@ export default {
 </script>
 <style>
 
-::-webkit-scrollbar {
-  width: 4px;
-  height: 4px;
-  background-color: white
-}
 
-/* Track */
-::-webkit-scrollbar-track {
-  box-shadow: none; 
-  border-radius: 10px;
-  width: 4px;
-  height: 4px
-}
- 
-/* Handle */
-::-webkit-scrollbar-thumb {
-  background: rgb(132, 121, 177); 
-  border-radius: 10px;
-  width: 4px;
-  height: 4px
-}
-
-/* Handle on hover */
-::-webkit-scrollbar-thumb:hover {
-  background: lightgrey; 
-}
 </style>

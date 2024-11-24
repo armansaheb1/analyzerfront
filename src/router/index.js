@@ -58,19 +58,24 @@ const routes = [
     component: () => import( '../components/Pages/Register.vue')
   },
   {
-    path: '/',
-    component: Layout,
-    children: [
-      {
     path: '/login',
     // route level code-splitting
     // this generates a separate chunk (about.[hash].js) for this route
     // which is lazy-loaded when the route is visited.
     component: () => import( '../components/Pages/Login.vue')
   },
+  {
+    path: '/',
+    component: Layout,
+    children: [
+      
       {
         path: '',
         component: () => import( '../components/Pages/Index.vue')
+      },
+      {
+        path: 'services',
+        component: () => import( '../components/Pages/Services.vue')
       },
       {
         path: 'writer',
@@ -89,8 +94,8 @@ const routes = [
         component: () => import( '../components/Pages/Profile.vue')
       },
       {
-        path: 'news-services/:id/:service',
-        component: () => import( '../components/Pages/NewsService.vue')
+        path: 'news-services/:id',
+        component: () => import( '../components/Pages/NewsResult.vue')
       },
       {
         path: 'services/:slug',

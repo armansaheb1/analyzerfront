@@ -421,7 +421,7 @@ export default {
         });
     },
     async submit() {
-      this.isLoading = true;
+      this.$store.state.isLoading = true;
       var aaa = {};
       var bbb = {};
       if (this.service.variables) {
@@ -438,7 +438,7 @@ export default {
         .post(`gbuilder/${slug}`, { maintext: this.maintext, data: aaa, data2: bbb })
         .then((response) => response.data)
         .then((response) => {
-          this.isLoading = false;
+          this.$store.state.isLoading = false;
           this.mainText = response.replace("```html", "").replace("```", "");
           while (this.mainText.includes("*") || this.mainText.includes("#")) {
             console.log(this.result);
@@ -460,11 +460,11 @@ export default {
           }
         })
         .catch(() => {
-          this.isLoading = false;
+          this.$store.state.isLoading = false;
         });
     },
     async ideasubmit() {
-      this.isLoading = true;
+      this.$store.state.isLoading = true;
       var bbb = {};
 
       for (var item of this.ideaEntries) {
@@ -475,12 +475,12 @@ export default {
         .post(`gideabuilder`, { maintext: this.ideamaintext, data: bbb })
         .then((response) => response.data)
         .then((response) => {
-          this.isLoading = false;
+          this.$store.state.isLoading = false;
           this.idearesult = response;
           console.log(response);
         })
         .catch(() => {
-          this.isLoading = false;
+          this.$store.state.isLoading = false;
         });
     },
   },
