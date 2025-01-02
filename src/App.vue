@@ -1,7 +1,5 @@
 <template>
-  <div
-    v-if="$store.state.isLoading"
-    style="
+  <div v-if="$store.state.isLoading" style="
       width: 100%;
       position: fixed;
       top: 0;
@@ -9,8 +7,7 @@
       height: 100%;
       z-index: 1000000000000000000000000000000000000000;
       background: white;
-    "
-  >
+    ">
     <div class="loadinger">
       <div></div>
       <div></div>
@@ -22,16 +19,14 @@
   width: 40%;
   text-align: center;
   margin:auto">
-    <div>کمی صبر کنید
- </div>
- <div>نتیجه در حال آماده‌سازی است</div>
+      <div>لطفا کمی صبر کنید
+      </div>
+      <div>متن هوشمند در حال <br> آماده سازیست</div>
+    </div>
   </div>
+  <div @click="!$store.state.adminsidebar" v-if="$store.state.adminsidebar"
+    :style="`background-color: rgba(0, 0, 0, 0.5);left: 0;width: 100%;height: 100%;position: fixed;z-index: 11000000`">
   </div>
-  <div
-    @click="!$store.state.adminsidebar"
-    v-if="$store.state.adminsidebar"
-    :style="`background-color: rgba(0, 0, 0, 0.5);left: 0;width: 100%;height: 100%;position: fixed;z-index: 11000000`"
-  ></div>
   <router-view />
 </template>
 <script>
@@ -48,6 +43,7 @@ export default {
     HelloWorld,
     Loading,
   },
+
   beforeCreate() {
     this.$store.commit("initializeStore");
 
@@ -76,9 +72,11 @@ export default {
 input {
   text-align: right;
 }
+
 body {
   margin: 0;
 }
+
 #app {
   font-family: Avenir, Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
@@ -99,27 +97,31 @@ nav a {
 nav a.router-link-exact-active {
   color: #42b983;
 }
+
 .form-control {
   border-radius: 0 !important;
   border: none;
 }
+
 .btn {
   font-size: 12px;
-  border-radius: 10px!important
+  border-radius: 10px !important
 }
+
 .btn-success {
   background: #2dca67 !important;
   border: solid 1px #2dca67;
 }
 
-.topright {
-}
-.bottomleft {
-}
+.topright {}
+
+.bottomleft {}
+
 p,
 p {
-  font-size: 9px;
-  font-weight: normal!important
+  font-size: 12px;
+  font-weight: normal !important;
+  line-height: 1.8
 }
 
 @media only screen and (max-width: 1023px) {
@@ -150,27 +152,42 @@ p {
   ::-webkit-scrollbar-thumb:hover {
     background: lightgrey;
   }
+  .topper{
+    height: 85px;
+    width: 100%;
+  }
 }
+
 @media only screen and (min-width: 1023px) {
-  
+  .topper{
+    height: 165px;
+    width: 100%;
+    padding-right: 10%;
+  }
+  .spacer{
+    height: 40px
+  }
   .topright {
     width: 50%;
-    padding-top: 100px;
     float: right;
-    padding-top: 150px;
+    padding-top: 110px;
   }
+
   .bottomleft {
     width: 50%;
-    padding-top: 80px;
+    padding-top: 5px;
     float: left;
+    padding-left: 5%
   }
+
   p,
   p {
     font-size: 12px;
   }
+
   ::-webkit-scrollbar {
-    width: 6px;
-    height: 6px;
+    width: 4px;
+    height: 4px;
     background-color: white;
     position: absolute;
   }
@@ -179,16 +196,16 @@ p {
   ::-webkit-scrollbar-track {
     box-shadow: none;
     border-radius: 10px;
-    width: 6px;
-    height: 6px;
+    width: 4px;
+    height: 4px;
   }
 
   /* Handle */
   ::-webkit-scrollbar-thumb {
-    background: rgb(108 131 228);
+    background: #b3dcf3;
     border-radius: 10px;
-    width: 6px;
-    height: 6px;
+    width: 4px;
+    height: 4px;
   }
 
   /* Handle on hover */
@@ -249,6 +266,139 @@ p {
   to {
     opacity: 0;
     transform: scale(3);
+  }
+}
+
+.result-box br {
+  line-height: 0.5
+}
+
+.result-box h6 {
+  font-size: 14px
+}
+
+
+.foldercontainer {
+  --transition: 350ms;
+  --folder-W: 120px;
+  --folder-H: 80px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-end;
+  padding: 10px;
+  background: linear-gradient(135deg, #6dd5ed, #2193b0);
+  border-radius: 15px;
+  box-shadow: 0 15px 30px rgba(0, 0, 0, 0.2);
+  height: calc(var(--folder-H) * 1.7);
+  position: relative;
+}
+
+.folder {
+  position: absolute;
+  top: -20px;
+  left: calc(50% - 60px);
+  animation: float 2.5s infinite ease-in-out;
+  transition: transform var(--transition) ease;
+}
+
+.folder:hover {
+  transform: scale(1.05);
+}
+
+.folder .front-side,
+.folder .back-side {
+  position: absolute;
+  transition: transform var(--transition);
+  transform-origin: bottom center;
+}
+
+.folder .back-side::before,
+.folder .back-side::after {
+  content: "";
+  display: block;
+  background-color: white;
+  opacity: 0.5;
+  z-index: 0;
+  width: var(--folder-W);
+  height: var(--folder-H);
+  position: absolute;
+  transform-origin: bottom center;
+  border-radius: 15px;
+  transition: transform 350ms;
+  z-index: 0;
+}
+
+.foldercontainer:hover .back-side::before {
+  transform: rotateX(-5deg) skewX(5deg);
+}
+
+.foldercontainer:hover .back-side::after {
+  transform: rotateX(-15deg) skewX(12deg);
+}
+
+.folder .front-side {
+  z-index: 1;
+}
+
+.foldercontainer:hover .front-side {
+  transform: rotateX(-40deg) skewX(15deg);
+}
+
+.folder .tip {
+  background: linear-gradient(135deg, #ff9a56, #ff6f56);
+  width: 80px;
+  height: 20px;
+  border-radius: 12px 12px 0 0;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+  position: absolute;
+  top: -10px;
+  z-index: 2;
+}
+
+.folder .cover {
+  background: linear-gradient(135deg, #ffe563, #ffc663);
+  width: var(--folder-W);
+  height: var(--folder-H);
+  box-shadow: 0 15px 30px rgba(0, 0, 0, 0.3);
+  border-radius: 10px;
+}
+
+.custom-file-upload {
+  font-size: 1.1em;
+  color: #ffffff;
+  text-align: center;
+  background: rgba(255, 255, 255, 0.2);
+  border: none;
+  border-radius: 10px;
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+  cursor: pointer;
+  transition: background var(--transition) ease;
+  display: inline-block;
+  width: 100%;
+  padding: 10px 35px;
+  position: relative;
+}
+
+.custom-file-upload:hover {
+  background: rgba(255, 255, 255, 0.4);
+}
+
+.custom-file-upload input[type="file"] {
+  display: none;
+}
+
+@keyframes float {
+  0% {
+    transform: translateY(0px);
+  }
+
+  50% {
+    transform: translateY(-20px);
+  }
+
+  100% {
+    transform: translateY(0px);
   }
 }
 </style>

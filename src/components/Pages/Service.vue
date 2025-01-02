@@ -1,364 +1,407 @@
 <template>
-  <loading :active="isLoading" :is-full-page="fullPage"></loading>
-  <div style="width: 100%; height: 40px"></div>
+  <div v-if="content2">
+    <div style="margin-top: 80px">
+      <div v-if="!file">
+        <h5 style="font-size: 16px; font-weight: bold">
+          عکس یا سند خود را از اینجا آپلود کن
+        </h5>
+        <p style="font-size: 12px">تا محتوای مرتبط برای شما تولید بشه</p>
+        <br /><br />
+      </div>
+      <div v-if="!file" class="card-body" style="text-align: right">
+        <div @click="clicker()" style="
+          cursor: pointer;
+          margin-top: -110px;
+          width: 50%;
+          margin-left: 25%;
+          background: none;
+          border-radius: 50%;
+          padding-top: 120px;
+        ">
+          <div class="foldercontainer">
+            <div class="folder">
+              <div class="front-side">
+                <div class="tip"></div>
+                <div class="cover"></div>
+              </div>
+              <div class="back-side cover"></div>
+            </div>
+            <label class="custom-file-upload"> Choose a file </label>
+          </div>
+        </div>
 
-  <img src="/wrobot.png" class="topimg" alt="" />
-  <div style="clear: both"></div>
-  <button
-    v-if="!idea && !result"
-    @click="
-      idea = true;
-      idearesult = '';
-    "
-    class="btn btn-success"
-    style="background: #8479b1; border-radius: 10px; margin-top: 10px"
-  >
-    برای ساخت ایده کلید کنید
-  </button>
-  <div v-if="!idea && !result" style="margin: 2.5%">
-    <div>
-      <div class="card-body" style="text-align: right">
-        <label for="" style="text-align: center; width: 100%">
-          ایده خود را در باکس زیر کپی کنید</label
-        ><br />
-        <textarea
-          rows="6"
-          style="border: none; border-radius: 15px"
-          v-model="maintext"
-          class="form-control"
-          id="maintext"
-        ></textarea>
-
-        <div v-for="item in service.static_variables">
+        <div style="width: 50%; margin-left: 25%">
           <br />
-          <label for=""><a style="color: red">*</a> {{ item.name }}</label
-          ><br />
+          <p style="text-align: right; font-size: 10px; margin-bottom: 0">
+            فقط بخشنامه ها و اسناد رسمی ✅
+          </p>
+          <p style="text-align: right; font-size: 10px; margin-bottom: 0">
+            حجم فایل: ۱۰۰ کیلوبایت تا ۵ مگابایت ✅
+          </p>
+          <p style="text-align: right; font-size: 10px; margin-bottom: 0">
+            فرمتهای پشتیبانیشده: JPG و PNG ✅
+          </p>
+        </div>
+        <input @input="upload()" type="file" hidden accept="image/png, image/gif, image/jpeg,application/pdf"
+          name="file" class="form-control" id="file" /><br />
+      </div>
+    </div>
+    <div class="topright" style="margin-top: 50px">
+      <div v-if="file">
+        <div style="
+            margin-top: -70px;
+            margin-bottom: 30px;
+            width: 24%;
+            margin-left: 38%;
+            aspect-ratio: 1/1;
+            background: white;
+            border-radius: 50%;
+          ">
+          <img style="width: 100%; height: 100%" src="/img/myicons/page-23.png" alt="" />
+          <br />
+        </div>
+        <h6 style="font-size: 20px">انتخاب کنید چه کاری انجام شود</h6>
+        <p style="margin-bottom: 5px; margin-top: 15px">
+          یکی از گزینه های زیر را انتخاب کنید تا فرایند انجام شود
+        </p>
+      </div>
+    </div>
+    <div class="bottomleft" style="margin-top: 50px">
+      <div>
+        <div class="alert alert-danger" v-if="errors">{{ errors }}</div>
+        <div v-if="file" class="card-body" style="text-align: right">
+          <div style="clear: both"></div>
 
-          <button
-            class="btn"
-            style="
-              float: right;
-              margin: 3px;
+          <button v-if="file" v-for="itemm in imgservices" @click="imgsubmit(itemm.id)" style="
+              margin: 10px;
+              background: white;
               border-radius: 10px;
-              font-size: 11px;
-              width: 24%;
-              margin: 0.5%;
-            "
-            v-for="items in item.options"
-            :style="[
-              items == item.selected
-                ? { background: '#8479b1', color: 'white' }
-                : { background: 'white', color: '#8479b1' },
-            ]"
-            @click="item.selected = items"
-            :value="items"
-          >
-            {{ items }}
+              width: 45%;
+              margin: 2.5%;
+              float: left;
+            " class="btn">
+            <h5 style="font-size: 14px">{{ itemm.name }}</h5>
+
+            <p style="font-size: 12px">{{ itemm.description }}</p>
+            <br />
           </button>
           <div style="clear: both"></div>
         </div>
+      </div>
+    </div>
+  </div>
+  <div v-if="content3">
+    <form  @submit.prevent="
+            content3 = false;
+          submit();
+          " >
+    <div>
+      <div class="topright" style="padding: 0 5%">
+        
+        <h6 style="text-align: center; width: 100%; font-size: 16px; font-weight: bold">
+          {{ service.name }}
+        </h6>
+        <h6 for="" style="text-align: center; width: 100%; font-weight: bold; font-size: 12px">
+          {{ service.description }}
+        </h6>
         <br />
-        <div v-for="item in service.variables">
-          <label for=""
-            ><a v-if="item.required" style="color: red">*</a> {{ item.name }}</label
-          ><br />
-          <textarea
-            class="form-control"
-            :id="item.slug"
-            v-if="item.type == 'textarea'"
-          ></textarea>
-          <select class="form-control" v-else-if="item.type == 'select'" :id="item.slug">
-            <option :value="item.options" v-for="items in item.options">
-              {{ items }}
-            </option>
-          </select>
-          <input :id="item.slug" v-else class="form-control" :type="item.type" /><br />
+        <div style="
+            margin-top: 0px;
+            width: 24%;
+            margin-left: 38%;
+            aspect-ratio: 1/1;
+            background: white;
+            border-radius: 50%;
+          ">
+          <img style="width: 100%; height: 100%" src="/img/pen.png" alt="" />
         </div>
-        <br /><br />
-        <button
-          @click="submit()"
-          class="btn btn-success form-control"
-          style="background: green; border-radius: 10px"
-        >
-          {{ service.button_name }}
+        <div v-if="template !== 3" class="">
+          <br />
+          
+          <textarea required rows="10" style="
+              font-size: 10px;
+              border: none;
+              border-radius: 15px !important;
+              width: 84%;
+              margin: 0 8%;
+            "
+            placeholder="اینجا متن یا موضوع دلخواه خود را وارد کنید.&#10;مثال : برای روز دختر یک پیام خلاقانه میخواهم"
+            v-model="maintext" class="form-control" id="maintext"></textarea>
+          <button type="button" @click="
+            content2 = true;
+          content3 = false;
+          " class="btn" style="background: white; float: left; margin: 5px; margin-left: 8%">
+            بارگذاری عکس<img style="width: 25px; aspect-ratio: 1/1; margin-left: 5px" src="/img/myicons/page-20 (2).png"
+              alt="" />
+          </button>
+          <button type="button" @click="
+            idea = true;
+          content3 = false;
+          " class="btn" style="background: white; float: left; margin: 5px">
+            تولید ایده
+            <img style="width: 25px; aspect-ratio: 1/1; margin-left: 5px" src="/img/myicons/page-9 (2).png" alt="" />
+          </button>
 
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            xmlns:xlink="http://www.w3.org/1999/xlink"
-            version="1.1"
-            id="Layer_1"
-            viewBox="0 0 416.449 416.449"
-            xml:space="preserve"
-            width="24"
-            height="24"
-          >
-            <g id="_x31_5._Rocket_2_">
-              <g id="XMLID_65_">
-                <g>
-                  <g>
-                    <path
-                      style="fill: #ff7124"
-                      d="M399.76,16.699c10.12,37.84,8.67,78.13-4.34,115.28h-0.01L284.48,21.049v-0.01      C321.63,8.029,361.92,6.579,399.76,16.699z"
-                    />
-                  </g>
-                  <g>
-                    <path
-                      style="fill: #f2d59f"
-                      d="M90.21,207.929l87.14-101.42h0.01l33.71-39.24c21.43-21.43,46.6-36.84,73.41-46.23v0.01      l110.93,110.93h0.01c-9.39,26.81-24.8,51.98-46.23,73.41l-39.24,33.71l-101.43,87.14l-29.57-29.57l-29.58-29.58l-29.58-29.58      L90.21,207.929z M296.11,193.399c20.18-20.17,20.18-52.89,0-73.06c-20.17-20.18-52.89-20.18-73.06,0      c-20.18,20.17-20.18,52.89,0,73.06C243.22,213.579,275.94,213.579,296.11,193.399z"
-                    />
-                  </g>
-                  <g>
-                    <path
-                      style="fill: #f2d59f"
-                      d="M309.95,239.099c1.74,45.6-14.8,91.78-49.61,126.59c-10.69,10.68-22.44,19.65-34.93,26.89      l-16.89-66.34L309.95,239.099z"
-                    />
-                  </g>
-                  <g>
-                    <path
-                      style="fill: #8ecac1"
-                      d="M296.11,120.339c20.18,20.17,20.18,52.89,0,73.06c-20.17,20.18-52.89,20.18-73.06,0      c-20.18-20.17-20.18-52.89,0-73.06C243.22,100.159,275.94,100.159,296.11,120.339z"
-                    />
-                  </g>
-                  <g>
-                    <path
-                      style="fill: #e6b263"
-                      d="M208.52,326.239l-39.94,14.71c-10.98,4.05-23.31,1.34-31.58-6.94l-6.85-6.85l48.8-30.49      L208.52,326.239z"
-                    />
-                  </g>
-                  <g>
-                    <polygon
-                      style="fill: #e6b263"
-                      points="178.95,296.669 130.15,327.159 130.14,327.159 109.72,306.739 149.37,267.089     "
-                    />
-                  </g>
-                  <g>
-                    <path
-                      style="fill: #f2d59f"
-                      d="M177.35,106.509l-87.14,101.42l-66.33-16.88c7.24-12.49,16.21-24.24,26.89-34.93      C85.58,121.309,131.74,104.769,177.35,106.509z"
-                    />
-                  </g>
-                  <g>
-                    <polygon
-                      style="fill: #e6b263"
-                      points="149.37,267.089 109.72,306.739 89.3,286.309 119.79,237.509     "
-                    />
-                  </g>
-                  <g>
-                    <path
-                      style="fill: #e6b263"
-                      d="M119.79,237.509l-30.49,48.8l-6.86-6.85c-8.27-8.28-10.98-20.6-6.94-31.58l14.71-39.95      L119.79,237.509z"
-                    />
-                  </g>
-                </g>
-                <g>
-                  <g>
-                    <path
-                      style="fill: #5e2a41"
-                      d="M28.88,339.459c-2.559,0-5.119-0.977-7.071-2.929c-3.905-3.905-3.905-10.237,0-14.143      l20.54-20.54c3.905-3.904,10.237-3.904,14.143,0c3.905,3.905,3.905,10.237,0,14.143l-20.54,20.54      C33.999,338.482,31.44,339.459,28.88,339.459z"
-                    />
-                  </g>
-                  <g>
-                    <path
-                      style="fill: #5e2a41"
-                      d="M10,416.439c-2.56,0-5.119-0.977-7.072-2.93c-3.905-3.905-3.904-10.237,0.001-14.142l68.47-68.46      c3.905-3.904,10.237-3.904,14.142,0.001c3.905,3.905,3.904,10.237-0.002,14.142l-68.47,68.46      C15.118,415.463,12.559,416.439,10,416.439z"
-                    />
-                  </g>
-                  <g>
-                    <path
-                      style="fill: #5e2a41"
-                      d="M73.29,411.259c-2.56,0-5.118-0.977-7.071-2.929c-3.905-3.905-3.905-10.237,0-14.143      l34.23-34.229c3.905-3.904,10.237-3.903,14.142,0c3.905,3.905,3.905,10.237,0,14.143l-34.23,34.229      C78.409,410.282,75.849,411.259,73.29,411.259z"
-                    />
-                  </g>
-                  <g>
-                    <path
-                      style="fill: #5e2a41"
-                      d="M208.52,336.239c-2.56,0-5.118-0.977-7.071-2.929L83.139,215c-3.905-3.905-3.905-10.237,0-14.143      c3.905-3.904,10.237-3.904,14.143,0l118.31,118.311c3.905,3.905,3.905,10.237,0,14.143      C213.639,335.263,211.079,336.239,208.52,336.239z"
-                    />
-                  </g>
-                  <g>
-                    <path
-                      style="fill: #5e2a41"
-                      d="M259.58,218.534c-16.474,0-31.959-6.416-43.604-18.066c-11.646-11.641-18.062-27.126-18.062-43.6      c0-16.474,6.416-31.959,18.065-43.604c11.641-11.646,27.126-18.062,43.6-18.062s31.959,6.416,43.604,18.065      c11.645,11.641,18.061,27.126,18.061,43.6c0,16.472-6.415,31.956-18.061,43.6l0,0c-0.001,0.002-0.001,0.001-0.004,0.004      C291.536,212.119,276.052,218.534,259.58,218.534z M259.58,115.204c-11.13,0-21.592,4.334-29.457,12.204      c-7.874,7.869-12.208,18.331-12.208,29.461s4.334,21.592,12.204,29.457c7.869,7.874,18.331,12.208,29.461,12.208      c11.13,0,21.592-4.334,29.457-12.204c0.002-0.001,0.003-0.002,0.004-0.004c7.87-7.865,12.204-18.327,12.204-29.457      s-4.334-21.592-12.204-29.457C281.172,119.538,270.71,115.204,259.58,115.204z"
-                    />
-                  </g>
-                  <g>
-                    <path
-                      style="fill: #5e2a41"
-                      d="M89.291,296.31c-1.81,0-3.642-0.49-5.29-1.521c-4.684-2.926-6.108-9.096-3.182-13.779l30.49-48.8      c2.927-4.684,9.097-6.11,13.78-3.182c4.684,2.926,6.108,9.096,3.182,13.779l-30.49,48.8      C95.884,294.643,92.625,296.31,89.291,296.31z"
-                    />
-                  </g>
-                  <g>
-                    <path
-                      style="fill: #5e2a41"
-                      d="M109.72,316.739c-2.559,0-5.118-0.977-7.071-2.929c-3.905-3.905-3.906-10.237-0.001-14.143      l39.65-39.65c3.905-3.904,10.237-3.904,14.142,0c3.905,3.905,3.906,10.237,0.001,14.142l-39.65,39.65      C114.839,315.763,112.279,316.739,109.72,316.739z"
-                    />
-                  </g>
-                  <g>
-                    <path
-                      style="fill: #5e2a41"
-                      d="M130.16,337.16c-3.334,0-6.593-1.666-8.49-4.702c-2.926-4.684-1.501-10.854,3.182-13.779      l48.8-30.49c4.683-2.929,10.853-1.503,13.78,3.182c2.926,4.684,1.501,10.853-3.182,13.779l-48.8,30.49      C133.801,336.67,131.97,337.16,130.16,337.16z"
-                    />
-                  </g>
-                  <g>
-                    <path
-                      style="fill: #5e2a41"
-                      d="M177.356,116.509c-2.307,0-4.625-0.794-6.512-2.415c-4.189-3.599-4.668-9.912-1.069-14.102      l33.71-39.24c3.598-4.188,9.911-4.668,14.102-1.068c4.189,3.599,4.668,9.912,1.068,14.101l-33.71,39.24      C182.968,115.327,180.17,116.509,177.356,116.509z"
-                    />
-                  </g>
-                  <g>
-                    <path
-                      style="fill: #5e2a41"
-                      d="M158.265,352.787c-10.448,0-20.723-4.085-28.34-11.712l-6.582-6.582      c-0.093-0.086-0.184-0.173-0.273-0.263l-47.694-47.695c-10.992-11.006-14.623-27.531-9.259-42.109l14.71-39.952      c0.413-1.12,1.022-2.157,1.799-3.061l87.14-101.42c3.601-4.188,9.913-4.667,14.102-1.068c4.189,3.6,4.667,9.913,1.068,14.102      L98.971,213.077l-14.086,38.257c-2.682,7.289-0.864,15.556,4.632,21.059l47.432,47.433c0.092,0.086,0.184,0.173,0.273,0.263      l6.85,6.85c5.497,5.504,13.756,7.318,21.048,4.63l38.252-14.089l139.302-119.675c4.191-3.6,10.504-3.119,14.102,1.068      c3.6,4.189,3.121,10.503-1.068,14.102L215.036,333.824c-0.904,0.777-1.94,1.387-3.059,1.799l-39.941,14.71      C167.557,351.985,162.893,352.787,158.265,352.787z"
-                    />
-                  </g>
-                  <g>
-                    <path
-                      style="fill: #5e2a41"
-                      d="M349.19,215.389c-2.559,0-5.118-0.977-7.071-2.929c-3.905-3.905-3.905-10.237,0-14.143      c19.885-19.884,34.642-43.315,43.863-69.644c11.736-33.512,13.626-69.25,5.536-103.733c-34.48-8.089-70.221-6.199-103.733,5.536      c-26.329,9.221-49.761,23.979-69.645,43.863c-3.905,3.904-10.236,3.905-14.143,0c-3.905-3.905-3.905-10.237,0-14.143      c22.025-22.024,47.991-38.375,77.176-48.596C320.331-2.111,362.231-3.69,402.344,7.039c3.454,0.924,6.152,3.622,7.076,7.076      c10.728,40.114,9.151,82.014-4.563,121.17c-10.221,29.185-26.571,55.15-48.596,77.175      C354.309,214.412,351.75,215.389,349.19,215.389z"
-                    />
-                  </g>
-                  <g>
-                    <path
-                      style="fill: #5e2a41"
-                      d="M395.41,141.98c-2.56,0-5.118-0.977-7.071-2.929L277.409,28.12      c-3.905-3.905-3.905-10.237,0-14.143c3.908-3.905,10.238-3.903,14.143,0l110.93,110.931c3.905,3.905,3.905,10.237,0,14.143      C400.528,141.003,397.969,141.98,395.41,141.98z"
-                    />
-                  </g>
-                  <g>
-                    <path
-                      style="fill: #5e2a41"
-                      d="M90.22,217.929c-0.832,0-1.67-0.104-2.477-0.309l-66.33-16.88      c-3.037-0.773-5.537-2.926-6.751-5.814c-1.215-2.889-1.005-6.181,0.566-8.892c7.778-13.418,17.355-25.86,28.467-36.982      c35.281-35.281,84.119-54.445,133.988-52.537c5.369,0.176,9.671,4.583,9.671,9.994c0,5.522-4.472,10-9.995,10h-0.01      c-0.127,0-0.254-0.002-0.381-0.007c-44.338-1.699-87.765,15.325-119.127,46.688c-6.684,6.689-12.742,13.914-18.101,21.576      l52.73,13.419c4.435,1.024,7.745,4.998,7.745,9.743C100.215,213.451,95.743,217.929,90.22,217.929z"
-                    />
-                  </g>
-                  <g>
-                    <path
-                      style="fill: #5e2a41"
-                      d="M225.41,402.579c-1.315,0-2.633-0.259-3.876-0.782c-2.89-1.215-5.042-3.714-5.815-6.75      l-16.891-66.34c-1.363-5.353,1.872-10.796,7.224-12.158c5.349-1.366,10.795,1.871,12.158,7.223l13.48,52.948      c7.663-5.359,14.889-11.419,21.581-18.104c31.36-31.36,48.378-74.785,46.684-119.136c-0.21-5.519,4.093-10.163,9.611-10.374      c5.509-0.233,10.164,4.093,10.375,9.611c1.903,49.897-17.243,98.755-52.532,134.044c-11.124,11.113-23.567,20.691-36.986,28.47      C228.881,402.126,227.148,402.579,225.41,402.579z"
-                    />
-                  </g>
-                </g>
-              </g>
-            </g>
-          </svg>
-        </button>
+          <div style="clear: both"></div>
+        </div>
+      </div>
+      <div class="card-body" style="text-align: right">
+        <div class="bottomleft" style="padding: 0 10%">
+          <br />
+          <h6 v-if="template !== 3" for="" style="text-align: right; width: 100%; font-weight: bold; font-size: 14px">
+            تنظیمات پیشرفته
+          </h6>
+
+          <div style="margin-bottom: 5px" v-for="item in service.static_variables">
+            <label style="font-size: 12px" for=""> {{ item.name }}</label>
+            <div style="clear: both"></div>
+
+            <button type="button" class="btn" style="
+                float: right;
+                margin: 3px;
+                border-radius: 10px !important;
+                font-size: 10px;
+                background: white;
+                padding: 10px;
+              " v-for="items in item.options" :style="[
+                items !== item.selected
+                  ? { color: 'black', background: 'white' }
+                  : { background: '#64cdc3', color: 'white' },
+              ]" @click="item.selected = items" :value="items">
+              {{ items }}
+            </button>
+            <div style="clear: both"></div>
+          </div>
+          <div v-for="item in service.variables">
+            <label style="font-size: 12px" for=""> {{ item.name }}</label>
+            <textarea required class="form-control" rows="6" style="font-size: 9px; color: grey" :id="item.slug" v-if="item.type == 'textarea'"
+              :placeholder="item.description"></textarea>
+            <select class="form-control" v-else-if="item.type == 'select'" :id="item.slug">
+              <option :value="item.options" v-for="items in item.options">
+                {{ items }}
+              </option>
+            </select>
+            <input :id="item.slug" :placeholder="item.description" v-else class="form-control" :type="item.type" /><br />
+          </div>
+
+          <button  class="btn btn-success" style="border-radius: 10px; width: 98%; margin: 1%; font-size: 13px">
+            متن هوشمند را بنویس
+          </button>
+        </div>
+      </div>
+    </div>
+    <br />
+  </form>
+  </div>
+
+  <div v-if="content4">
+    <div>
+      <div class="card-body" style="text-align: right">
+        <div class="card-body" style=""></div>
       </div>
     </div>
     <br />
   </div>
-  <br />
 
-  <div v-if="idea && !idearesult" style="margin: 2.5%">
+  <div v-if="idea && !idearesult">
+    <form @submit.prevent="ideasubmit()">
     <div>
       <div class="card-body" style="text-align: right">
-        <label for="" style="text-align: center; width: 100%">
-          موضوع خود را برای ساخت ایده وارد کنید</label
-        ><br />
-        <textarea
-          rows="6"
-          style="border: none; border-radius: 15px"
-          v-model="ideamaintext"
-          class="form-control"
-        ></textarea>
-
-        <div v-for="item in ideaEntries">
-          <br />
-          <label for=""><a style="color: red">*</a> {{ item.name }}</label
-          ><br />
-
-          <button
-            class="btn"
-            style="
-              float: right;
-              margin: 3px;
-              border-radius: 10px;
-              font-size: 11px;
+        <div class="topright">
+          <div style="
+              margin-top: 0px;
               width: 24%;
-              margin: 0.5%;
-            "
-            v-for="items in item.options"
-            :style="[
-              items == item.selected
-                ? { background: '#8479b1', color: 'white' }
-                : { background: 'white', color: '#8479b1' },
-            ]"
-            @click="item.selected = items"
-            :value="items"
-          >
-            {{ items }}
-          </button>
-          <div style="clear: both"></div>
-        </div>
-
-        <div v-for="(item, idx) in service.variables">
-          <label for=""
-            ><a v-if="item.required" style="color: red">*</a> {{ item.name }}</label
-          >
-          btn
+              margin-left: 38%;
+              aspect-ratio: 1/1;
+              border-radius: 50%;
+            ">
+            <br />
+            <img style="width: 100%; height: 100%" src="/img/myicons/page-10.png" alt="" />
+          </div>
           <br />
-          <textarea
-            class="form-control"
-            :id="item.slug"
-            v-if="item.type == 'textarea'"
-          ></textarea>
-          <select class="form-control" v-else-if="item.type == 'select'" :id="item.slug">
-            <option :value="item.options" v-for="items in item.options">
-              {{ items }}
-            </option>
-          </select>
-          <input :id="item.slug" v-else class="form-control" :type="item.type" /><br />
+          <label for="" style="text-align: center; width: 100%">
+            درباره چه موضوعی نیاز به ایده دارید؟</label><br /><br />
         </div>
-        <br /><br /><br />
-        <button
-          @click="ideasubmit()"
-          class="btn btn-success form-control"
-          style="background: green; border-radius: 10px"
-        >
-          شروع نوشتن
-        </button>
+        <div class="bottomleft" style="">
+          <textarea required placeholder="
+اینجا بنویسید... (مثال: ایده برای  روز درختکاری)" rows="10" style="
+              border: none;
+              border-radius: 15px !important;
+              font-size: 10px;
+              border-radius: 15px !important;
+            " v-model="ideamaintext" class="form-control"></textarea>
+
+          <br />
+          <button  class="btn btn-success form-control"
+            style="background: green; border-radius: 10px">
+            !ایده های من را بساز
+          </button>
+          <p style="text-align: center">
+            برای دریافت بهترین ایده ها روی دکمه بالا کلیک کنید
+          </p>
+        </div>
       </div>
     </div>
     <br />
+  </form>
   </div>
   <div v-if="idearesult" class="card-body">
-    <h5>با کلیک بر روی هر ایده میتوانید ساخت متن خود را ادامه دهید</h5>
-    <div
-      class="alert alert-success"
-      @click="
+    <div class="topright">
+      <div style="
+          margin-top: 0px;
+          width: 24%;
+          margin-left: 38%;
+          aspect-ratio: 1/1;
+          border-radius: 50%;
+        ">
+        <br />
+        <img style="width: 100%; height: 100%" src="/img/myicons/page-10.png" alt="" />
+      </div>
+      <br />
+      <h5 style="font-size: 17px">!یکی از ایده های زیر را انتخاب کنید</h5>
+      <br />
+    </div>
+    <div class="bottomleft">
+      <div class="alert" @click="
         maintext = item.description;
-        idea = false;
-        idearesult = '';
-      "
-      style="text-align: justify; direction: rtl"
-      v-for="item in idearesult"
-    >
-      <h5>{{ item.title }}</h5>
-      <p>{{ item.description }}</p>
+      idea = false;
+      idearesult = '';
+      content3 = true;
+      " style="
+          text-align: justify;
+          direction: rtl;
+          cursor: pointer;
+          border-radius: 10px;
+          background: white;
+        " v-for="item in idearesult">
+        <h5 style="font-size: 14px; line-height: 25px">{{ item.title }}</h5>
+        <p style="font-size: 10px; line-height: 20px">{{ item.description }}</p>
+      </div>
+      <button @click="ideasubmit()" class="btn btn-outline-success">
+        !ایده های بیشتری می خواهید ؟ دوباره امتحان کنید
+      </button>
     </div>
   </div>
-  <div v-if="result" class="card-body">
-    <div
-      style="text-align: justify; direction: rtl"
-      v-html="result"
-      class="alert alert-success"
-    ></div>
-  </div>
   <div v-if="result">
-    <button
-      @click="submit()"
-      class="btn btn-success"
-      style="width: 48%; margin: 1%; float: right"
-    >
-      نتایج جدید
-    </button>
-    <button
-      @click="result = ''"
-      class="btn btn-warning"
-      style="width: 48%; margin: 1%; float: right"
-    >
-      شروع مجدد
-    </button>
-  </div>
+    <div class="topright" style="padding-top: 30px">
+      <div style="
+          text-align: right;
+          width: 80%;
+          margin-left: 10%;
+          margin-right: 10%;
+          direction: rtl;
+          background: white;
+          padding: 5%;
+          border-radius: 10px;
+          margin-top: 15px;
+        " v-if="result" v-html="result" class="result-box"></div>
+    </div>
+    <div class="bottomleft" style="padding: 0 10%">
+      <div v-if="result">
+        <br />
+        <br />
+        <h6 for="" style="text-align: right; width: 100%; font-weight: bold; font-size: 14px">
+          تغییرات مجدد
+        </h6>
 
-  <div style="height: 150px"></div>
+        <div style="
+            text-align: right;
+            max-width: 100%;
+            overflow-x: auto;
+            white-space: nowrap;
+            font-family: 'vazir';
+            direction: rtl;
+            overflow-y: hidden;
+          ">
+          <div>
+            <div v-for="item in rebuildServices" @click="afterSubmitRebuild(item.id)" style="
+                text-align: right;
+                max-width: 100%;
+                display: inline-block;
+                height: 30px;
+                direction: rtl;
+                margin-top: 18px;
+                font-family: 'vazir';
+              ">
+              <i style="
+                  font-size: 12px;
+                  color: #8479b1;
+                  background-color: white;
+                  border: solid white 2px;
+                  padding: 5px 10px;
+                  margin-top: -8px;
+                  border-radius: 10px;
+                  cursor: pointer;
+                  margin-right: 5px;
+                  font-weight: bold;
+                  text-align: right;
+                  font-family: 'vazir';
+                ">
+                <!-- <i class="fa-solid fa-pencil"></i> -->
+                {{ item.name }}</i>
+            </div>
+          </div>
+        </div>
+
+        <br />
+        <h6 for="" style="text-align: right; width: 100%; font-weight: bold; font-size: 14px">
+          تبدیل متن به فرمت های مختلف
+        </h6>
+
+        <div style="
+            text-align: right;
+            max-width: 100%;
+            overflow-x: auto;
+            white-space: nowrap;
+            font-family: 'vazir';
+            direction: rtl;
+            overflow-y: hidden;
+          ">
+          <div>
+            <div v-for="item in formatServices" @click="afterSubmitFormat(item.id)" style="
+                text-align: right;
+                max-width: 100%;
+                display: inline-block;
+                height: 30px;
+                direction: rtl;
+                margin-top: 18px;
+                font-family: 'vazir';
+              ">
+              <i style="
+                  font-size: 12px;
+                  color: #8479b1;
+                  background-color: white;
+                  border: solid white 2px;
+                  padding: 5px 10px;
+                  margin-top: -8px;
+                  border-radius: 10px;
+                  cursor: pointer;
+                  margin-right: 5px;
+                  font-weight: bold;
+                  text-align: right;
+                  font-family: 'vazir';
+                ">
+                <!-- <i class="fa-solid fa-pencil"></i> -->
+                {{ item.name }}</i>
+            </div>
+          </div>
+        </div>
+      </div>
+      <br /><br />
+      <div v-if="result" style="left: 0; bottom: 0; width: 100%">
+        <div style="clear: both"></div>
+
+        <button @click="clearresult(); content3 = true" class="btn btn-outline-success"
+          style="border-radius: 10px; width: 48%; margin: 1%; font-size: 14px">
+          بازگشت
+        </button>
+        <button @click="saveText(result)" class="btn btn-success"
+          style="border-radius: 10px; width: 48%; margin: 1%; font-size: 13px">
+          ذخیره و اشتراک گذاری
+        </button>
+      </div>
+    </div>
+  </div>
 </template>
 
 <script>
@@ -376,16 +419,29 @@ export default {
   },
   mounted() {
     this.get_service();
+    this.get_format_service();
+    this.get_rebuild_service();
     this.get_idea_entries();
+    this.get_img_services();
   },
   data() {
     return {
       service: [],
       idea: false,
       datas: {},
+      imgservices: [],
+      file: "",
       result: "",
       maintext: "",
+      idea: false,
+      content1: false,
+      content2: false,
+      content3: true,
+      content4: false,
       ideaEntries: [],
+      formatServices: [],
+      sebuildServices: [],
+      template: 3,
       idearesult: "",
       ideamaintext: "",
       isLoading: false,
@@ -396,6 +452,135 @@ export default {
     };
   },
   methods: {
+    async afterSubmitFormat(id) {
+      this.$store.state.isLoading = true;
+      await axios
+        .post(`gbuilder-format/${id}`, { text: this.result })
+        .then((response) => response.data)
+        .then((response) => {
+          this.result = response;
+          this.$store.state.isLoading = false;
+         window.scrollTo(0, 0);
+        });
+    },
+    async afterSubmitRebuild(id) {
+      this.$store.state.isLoading = true;
+      await axios
+        .post(`gbuilder-rebuild/${id}`, { text: this.result })
+        .then((response) => response.data)
+        .then((response) => {
+          this.result = response;
+          this.$store.state.isLoading = false;
+         window.scrollTo(0, 0);
+        });
+    },
+    async get_format_service() {
+      var slug = this.$route.params.slug;
+      await axios
+        .get(`formatservices`)
+        .then((response) => response.data)
+        .then((response) => {
+          this.formatServices = response;
+        });
+    },
+    async get_rebuild_service() {
+      var slug = this.$route.params.slug;
+      await axios
+        .get(`rebuildservices`)
+        .then((response) => response.data)
+        .then((response) => {
+          this.rebuildServices = response;
+        });
+    },
+
+    saveText(text) {
+      var data = new Blob([text], { type: "application/msword" });
+      var textFile = window.URL.createObjectURL(data);
+      if (document.getElementById("download") !== null) {
+        document.body.removeChild(document.getElementById("download"));
+      }
+      var a = document.createElement("a");
+      a.setAttribute("id", "download");
+      a.setAttribute("href", textFile);
+      a.setAttribute("download", "");
+      a.textContent = "Click here to download the test for the students";
+      document.body.appendChild(a);
+      a.click();
+      a.remove();
+    },
+    clicker() {
+      document.querySelector("#file").click();
+    },
+    clearresult() {
+      var highestTimeoutId = setTimeout(";");
+      for (var i = 0; i < highestTimeoutId; i++) {
+        clearTimeout(i);
+      }
+      this.result = "";
+    },
+    async get_img_services() {
+      await axios
+        .get("image-services")
+        .then((response) => response.data)
+        .then((response) => {
+          this.imgservices = response;
+          console.log(response);
+        });
+    },
+    async imgsubmit(id) {
+      this.$store.state.isLoading = true;
+      await axios
+        .post("gbuilderfile", { id: id, file: this.file })
+        .then((response) => response.data)
+        .then((response) => {
+          this.$store.state.isLoading = false;
+         window.scrollTo(0, 0);
+          console.log(response);
+          this.maintext = response[0][1];
+          this.content3 = true;
+          this.content2 = false;
+        })
+        .catch(() => {
+          this.$store.state.isLoading = false;
+         window.scrollTo(0, 0);
+        });
+    },
+    async upload() {
+      this.errors = "";
+      this.$store.state.isLoading = true;
+
+      var img = document.getElementById("file").files[0];
+      var formdata = new FormData();
+      if (
+        !(
+          img.name.includes(".png") ||
+          img.name.includes(".jpg") ||
+          img.name.includes(".jpg") ||
+          img.name.includes(".JPEG") ||
+          img.name.includes(".gif")
+        )
+      ) {
+        this.errors = "فایل انتخاب شده باید عکس باشد";
+        this.$store.state.isLoading = false;
+         window.scrollTo(0, 0);
+        return;
+      }
+      formdata.append("file", img, img.name);
+      await axios
+        .post("uploader", formdata)
+        .then((response) => response.data)
+        .then((response) => {
+          this.$store.state.isLoading = false;
+         window.scrollTo(0, 0);
+          console.log(response);
+          this.file = response.get_image;
+        })
+        .catch((data) => {
+          this.$store.state.isLoading = false;
+         window.scrollTo(0, 0);
+          this.errors = data.response.data;
+        });
+    },
     async get_idea_entries() {
       var slug = this.$route.params.slug;
       await axios
@@ -415,6 +600,10 @@ export default {
         .then((response) => response.data)
         .then((response) => {
           this.service = response;
+          this.template = response.category.template;
+          if (response.category.template === 3) {
+            this.content4 = true;
+          }
           for (var item of this.service.static_variables) {
             item.selected = item.options[0];
           }
@@ -426,9 +615,10 @@ export default {
       var bbb = {};
       if (this.service.variables) {
         for (var item of this.service.variables) {
-          aaa[item.name] = document.querySelector("#" + item.slug).value;
+          aaa[item.slug] = document.querySelector("#" + item.slug).value;
         }
       }
+      console.log(aaa);
 
       for (var item of this.service.static_variables) {
         bbb["n" + item.id] = item.selected;
@@ -439,28 +629,17 @@ export default {
         .then((response) => response.data)
         .then((response) => {
           this.$store.state.isLoading = false;
+         window.scrollTo(0, 0);
           this.mainText = response.replace("```html", "").replace("```", "");
           while (this.mainText.includes("*") || this.mainText.includes("#")) {
             console.log(this.result);
             this.mainText = this.mainText.replace("*", "").replace("#", "");
           }
-          var highestTimeoutId = setTimeout(";");
-          for (var i = 0; i < highestTimeoutId; i++) {
-            clearTimeout(i);
-          }
-          this.result = "";
-          this.counter = 0;
-          for (let i = 0; i < this.mainText.length; i++) {
-            setTimeout(() => {
-              // append next character
-              this.result = this.result + this.mainText[i];
-            }, this.delay * this.counter); // equal delay between characters
-
-            this.counter += 1;
-          }
+          this.result = this.mainText;
         })
         .catch(() => {
           this.$store.state.isLoading = false;
+         window.scrollTo(0, 0);
         });
     },
     async ideasubmit() {
@@ -476,11 +655,13 @@ export default {
         .then((response) => response.data)
         .then((response) => {
           this.$store.state.isLoading = false;
+         window.scrollTo(0, 0);
           this.idearesult = response;
           console.log(response);
         })
         .catch(() => {
           this.$store.state.isLoading = false;
+         window.scrollTo(0, 0);
         });
     },
   },
@@ -493,6 +674,7 @@ export default {
   margin: 0.5%;
   margin-bottom: -15px;
 }
+
 @media only screen and (min-width: 600px) {
   .topimg {
     width: 20%;

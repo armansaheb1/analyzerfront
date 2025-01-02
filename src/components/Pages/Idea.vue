@@ -20,7 +20,7 @@
           ایده خود را در باکس زیر کپی کنید</label
         ><br />
 
-        <div v-for="item in service.static_variables">
+        <div style="margin-bottom: 5px" v-for="item in service.static_variables">
           <br />
           <label for=""><a style="color: red">*</a> {{ item.name }}</label
           ><br />
@@ -345,7 +345,7 @@
       class="btn btn-warning"
       style="width: 48%; margin: 1%; float: right"
     >
-      شروع مجدد
+      بازگشت
     </button>
   </div>
 
@@ -426,6 +426,7 @@ export default {
         .then((response) => response.data)
         .then((response) => {
           this.$store.state.isLoading = false;
+         window.scrollTo(0, 0);
           this.result = response.replace("```html", "").replace("```", "");
           while (this.result.includes("*") || this.result.includes("#")) {
             console.log(this.result);
@@ -434,6 +435,7 @@ export default {
         })
         .catch(() => {
           this.$store.state.isLoading = false;
+         window.scrollTo(0, 0);
         });
     },
     async ideasubmit() {
@@ -449,11 +451,13 @@ export default {
         .then((response) => response.data)
         .then((response) => {
           this.$store.state.isLoading = false;
+         window.scrollTo(0, 0);
           this.idearesult = response;
           console.log(response);
         })
         .catch(() => {
           this.$store.state.isLoading = false;
+         window.scrollTo(0, 0);
         });
     },
   },

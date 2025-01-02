@@ -1,12 +1,4 @@
 <template>
-  <!-- <button
-    v-if="roout !== '/'"
-    @click="$router.go(-1)"
-    style="position: absolute; top: 5px; left: 5px"
-    class="btn btn-secondary"
-  >
-    <
-  </button> -->
   <nav style="
       width: 100%;
       height: 25px;
@@ -22,7 +14,6 @@
       <a href="/services">
         <img src="/img/logo-oxygen.png" style="height: 45px; float: right"></a>
     </div>
-
     <a href="/profile" style="
         margin: -25px 5px;
       ">
@@ -32,8 +23,7 @@
     <a href="/news" style="
         margin: -25px 5px;
       ">
-      <img src="/img/newspaper.gif"
-        style="margin-top: 10px;height: 26px; float: left;margin-right: 20px;aspect-ratio: 1 / 1;">
+      <img src="/img/newspaper.gif" style="margin-top: 10px;height: 26px; float: left;margin-right: 20px">
     </a>
     <a href="/occasions" style="
         margin: -25px 10;
@@ -50,164 +40,6 @@
          -->
     <div class="main">
       <router-view />
-    </div>
-    <div class="bottomnav" style="
-        height: 110px;
-        padding: 20px 10%;
-        background-color: white;
-        width: 100%;
-        position: fixed;
-        bottom: 0;
-        left: 0%;
-        border-top: solid 1px black
-      ">
-      <div style="width: 100%; z-index: 1; height: 80px; border-radius: 25px" class="btn-group" role="group"
-        aria-label="Basic example">
-        <a style="text-decoration: none" href="/services" class="svgbox">
-          <div style="height: 45px; width: 45px; border-radius: 10px; margin: auto" :style="[
-            roout == '/services'
-              ? {
-                height: '55px',
-                'font-weight': 'bold',
-                width: '55px',
-                'border-radius': '10px',
-                margin: 'auto',
-                padding: '3px',
-              }
-              : {
-                height: '45px',
-                width: '45px',
-                'font-weight': 'lighter',
-                'border-radius': '10px',
-                margin: 'auto',
-              },
-          ]">
-            <img style="aspect-ratio: 1/1; width: 100%" src="/img/myicons/desktop ver (5).png" alt="" />
-            <br />
-            <a style="
-                position: relative;
-                text-decoration: none;
-                color: #333;
-                top: 12px;
-                font-size: 11px;
-                width: 100%;
-                display: block;
-                width: 200%;
-                margin-left: -50%;
-                margin-top: -5px;
-              ">خانه</a>
-          </div>
-        </a>
-        <a style="text-decoration: none" href="/news" class="svgbox">
-          <div style="height: 45px; width: 45px; border-radius: 10px; margin: auto" :style="[
-            roout == '/news'
-              ? {
-                height: '55px',
-                'font-weight': 'bold',
-                width: '55px',
-                'border-radius': '10px',
-                margin: 'auto',
-                padding: '0px',
-              }
-              : {
-                height: '45px',
-                width: '45px',
-                'font-weight': 'lighter',
-                'border-radius': '10px',
-                margin: 'auto',
-              },
-          ]">
-            <img style="aspect-ratio: 1/1; width: 100%" src="/img/myicons/desktop ver (8).png" alt="" />
-
-            <br />
-            <a style="
-                position: relative;
-                text-decoration: none;
-                color: #333;
-                top: 12px;
-                font-size: 11px;
-                width: 100%;
-                display: block;
-                width: 200%;
-                margin-left: -50%;
-                margin-top: -5px;
-              ">
-              تحلیل گزارش</a>
-          </div>
-        </a><a class="svgbox" href="/writer" style="text-decoration: none">
-          <div style="" :style="[
-            roout == '/writer'
-              ? {
-                height: '55px',
-                'font-weight': 'bold',
-                width: '55px',
-                'border-radius': '10px',
-                'background-color': 'white',
-                margin: 'auto',
-                padding: '0px',
-              }
-              : {
-                height: '45px',
-                width: '45px',
-                'font-weight': 'lighter',
-                'border-radius': '10px',
-                'background-color': 'white',
-                margin: 'auto',
-              },
-          ]">
-            <img style="aspect-ratio: 1/1; width: 100%" src="/img/myicons/desktop ver (4).png" alt="" />
-            <br />
-            <a href="/writer" style="
-                position: relative;
-                text-decoration: none;
-                color: #333;
-                top: 12px;
-                font-size: 11px;
-                width: 200%;
-                margin-left: -50%;
-                display: block;
-                margin-top: -5px;
-              ">
-              تولید محتوا</a>
-          </div>
-        </a>
-        <a href="/analysis" class="svgbox" style="text-decoration: none">
-          <div style="height: 45px; width: 45px; border-radius: 10px; margin: auto" :style="[
-            roout == '/analysis'
-              ? {
-                height: '55px',
-                'font-weight': 'bold',
-                width: '55px',
-                'border-radius': '10px',
-                margin: 'auto',
-                padding: '3px',
-              }
-              : {
-                height: '45px',
-                width: '45px',
-                'font-weight': 'lighter',
-                'border-radius': '10px',
-                margin: 'auto',
-                padding: '1px',
-              },
-          ]">
-            <img style="aspect-ratio: 1/1; width: 100%" src="/img/myicons/desktop ver (3).png" alt="" />
-            <br />
-            <a href="/analysis" style="
-                position: relative;
-                text-decoration: none;
-                color: #333;
-                top: 12px;
-                font-size: 11px;
-                width: 100%;
-                display: block;
-                width: 200%;
-                margin-left: -50%;
-                margin-top: -5px;
-              ">تبدیل تصویر</a>
-          </div>
-        </a>
-      </div>
     </div>
 
     <div class="rightnav" style="
@@ -403,7 +235,6 @@
       </div>
     </div>
   </div>
-  <div style="height: 60px"></div>
 </template>
 
 <script>
@@ -420,17 +251,32 @@ export default {
       roout: null,
     };
   },
-
   mounted() {
     var route = useRoute();
     this.roout = route.path;
     if (!this.$store.state.isAuthenticated) {
       this.$router.push(this.$route.go || "/login");
     }
+
   },
+  methods: {
+    async check() {
+      await axios
+        .get('auth/users/me/')
+        .then(response => response)
+        .catch(() => {
+          this.$router.push(this.$route.go || "/login");
+        })
+    }
+  }
+
 };
 </script>
 <style>
+.topright {
+  padding-top: 35px !important
+}
+
 .svgbox {
   display: block;
   height: 20%;
@@ -460,7 +306,7 @@ export default {
 
 @media only screen and (min-width: 1280px) {
   .main {
-    width: 94%;
+    width: 90%;
     float: left;
   }
 
@@ -480,7 +326,7 @@ export default {
   }
 
   .main {
-    width: 92%;
+    width: 98%;
     float: unset;
   }
 

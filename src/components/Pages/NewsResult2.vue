@@ -14,15 +14,27 @@
           <img style="width: 100%; height: 100%" src="/img/myicons/MOBILE VER (19).png" alt="" />
         </div>
         <br />
-        <h5 style="font-size:15px">گزارش هوشمند شما آماده شد</h5>
+        <h5 style="font-size:16px">محتوای هوشمند شما آماده شد</h5>
+        <p style="width: 80%; margin-right: 10%; margin-left: 10%">با کلیک بر روی هر خبر میتوانید از انواع سرویس های
+          ویرایش متن
+          ما برای شبکه های اجتماعی, مقاله نویسی و ... استفاده کنید
+        </p>
       </div>
     </div>
-    <div class="bottomleft card-body">
-      <p style="width: 80%; margin-right: 10%; margin-left: 10%">با کلیک بر روی هر خبر میتوانید از انواع سرویس های
-        ویرایش متن
-        ما برای شبکه های اجتماعی, مقاله نویسی و ... استفاده کنید
-      </p>
-      <div style="
+    <div class="bottomleft card-body" style="padding-top: 30px">
+
+      <div style="margin-right: 10%">
+        <button class="btn" style="float: right; margin-left: 10px;" v-for="item in Object.keys(result)" :style="[
+          selected !== item
+            ? { color: 'black', background: 'white' }
+            : { background: '#64cdc3', color: 'white' },
+        ]" @click="selected = item">{{ item }}</button>
+        <div style="clear: both"></div>
+      </div>
+      <div v-for="(item, idx) in result[selected]">
+        <br>
+        <h5 style="font-size: 14px;text-align: right;margin-right: 10%">{{ item.title }}</h5>
+        <div style="
           text-align: right;
           width: 80%;
           margin-left: 10%;
@@ -33,11 +45,52 @@
           border-radius: 10px;
           margin-top: 15px;
           cursor: pointer
-        " v-for="(item, idx) in result" @click="selected = idx; isModalVisible = true" class="result-box">
-        <h5 style="font-size: 14px">{{ item.title }}</h5>
-        <br>
-        <h6 style="color: rgb(119, 119, 119); font-size: 12px">{{ item.text }}</h6>
+        " class="result-box">
+
+          <h6 style="color: rgb(119, 119, 119); font-size: 12px; line-height: 1.8">{{ item.text }}</h6>
+        </div>
+
+        <div style="
+            text-align: right;
+            max-width: 100%;
+            overflow-x: auto;
+            padding-right: 10%;
+            white-space: nowrap;
+            font-family: 'vazir';
+            direction: rtl;
+            overflow-y: hidden;
+          ">
+          <div>
+            <div v-for="itemm in formatServices" @click="afterSubmitFormat(itemm.id, item.text)" style="
+                text-align: right;
+                max-width: 100%;
+                display: inline-block;
+                height: 30px;
+                direction: rtl;
+                margin-top: 18px;
+                font-family: 'vazir';
+              ">
+              <i style="
+                  font-size: 12px;
+                  color: #8479b1;
+                  background-color: white;
+                  border: solid white 2px;
+                  padding: 5px 10px;
+                  margin-top: -8px;
+                  border-radius: 10px;
+                  cursor: pointer;
+                  margin-right: 5px;
+                  font-weight: bold;
+                  text-align: right;
+                  font-family: 'vazir';
+                ">
+                <!-- <i class="fa-solid fa-pencil"></i> -->
+                {{ itemm.name }}</i>
+            </div>
+          </div>
+        </div>
       </div>
+      <br>
     </div>
   </div>
   <div v-if="text">
@@ -196,9 +249,10 @@ export default {
       category: "",
       olength: false,
       formatServices: [],
-      RebuildServices: [],
+      rebuildServices: [],
       selected: '',
       result: '',
+      result2: '',
       resid: '',
       text: '',
       colors: ["#82ccfb", "#9958b8", "#b3dcf3", "#ecd6f6"],
@@ -242,6 +296,7 @@ export default {
           this.result = ''
           this.$store.state.isLoading = false;
          window.scrollTo(0, 0);
+
         });
     },
     async get_format_service() {
@@ -285,6 +340,7 @@ export default {
           this.text = response.text
           this.result = response.news
           this.resid = response.id
+          this.selected = Object.keys(response.news)[0]
 
           console.log(response)
         }).catch(() => {

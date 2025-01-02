@@ -1,285 +1,219 @@
 <template>
-  <div
-    style="
+  <div style="
       overflow-x: auto;
       overflow-y: hidden;
-      white-space: nowrap;
       text-align: right;
       margin-top: 10px;
-    "
-  >
+    ">
     <div style="clear: both; color: white; border-color: white"></div>
-    <div v-if="!category">
+    <div v-if="!subject">
       <br />
-      <div v-for="(cat, catidx) in categories">
-        <br />
-        <h4
-          style="
-            font-family: 'vazir';
-            margin-right: 10%;
-            font-size: 18px;
-            border-radius: 16px;
-              line-height: 30px;
-          "
-        >
-          {{ cat.name }}
-        </h4>
-        <div
-          v-if="cat.template === 1"
-          style="
+
+      <h4 style="
+          font-family: 'vazir';
+          margin-right: 10%;
+          font-size: 18px;
+          border-radius: 16px;
+          line-height: 30px;
+          margin-bottom: 0;
+        ">
+        موضوع خبر خود را انتخاب کنید
+      </h4>
+      <div style="
             text-align: right;
             max-width: 100%;
             overflow-x: auto;
-            white-space: nowrap;
             font-family: 'vazir';
             direction: rtl;
-            padding-right: 5%;
-          "
-        >
-          <a
-            v-for="(item, idx) in cat.services"
-            class="mycard"
-            :style="`text-decoration:none;display: inline-block;font-size: 16px; color: #777777; background-color: #fff;  padding: 8px; margin-top: 0px;border-radius: 20px; cursor: pointer; margin:5%; padding: 1.5% ;box-sizing: border-box;`"
-            @click="get(item.id)"
-          >
-            <i v-bind:key="item" style="padding: 10px">
-              <i
-                style="
-                  display: block;
-                  width: 44%;
-                  margin: auto;
-                  margin-bottom: 10px;
-                  aspect-ratio: 1/1;
-                  border-radius: 50%;
-                  background: lightgrey;
-                  text-align: center;
-                "
-                ><img
-                  style="width: 100%; aspect-ratio: 1/1; border-radius: 50%"
-                  :src="item.get_image"
-                  alt=""
-              /></i>
-              <div style="clear: both"></div>
-              <h6
-                style="
+            padding: 0 7.5%;
+          ">
+        <a v-for="(item, idx) in categories" class="mycard"
+          :style="`text-decoration:none;display: inline-block;font-size: 16px; color: #777777; background-color: #fff;  padding: 8px; margin-top: 0px;border-radius: 20px; cursor: pointer; margin:1%; padding: 1.5% ;box-sizing: border-box;aspect-ratio: 1/1`"
+          @click="subject = item.id">
+          <i v-bind:key="item" style="padding: 0 10px">
+            <h6 style="
                   margin: 0;
                   height: 30px;
                   color: black;
                   font-size: 14px;
                   border-radius: 16px;
-              line-height: 30px;
+                  line-height: 30px;
                   white-space: break-spaces;
                   text-align: center;
                   font-family: 'vazir';
                   width: 90%;
                   margin-right: 5%;
-                "
-                v-html="item.name"
-              ></h6>
-              <p
-                style="
-                  margin: 5px;
-                  text-align: justify;
-                  font-size: 12px;
-                  line-height: 25px;
-                  text-decoration: none;
-                  margin-top: 10px;
-                  white-space: break-spaces;
-                  width: 98%;
-                  margin: auto;
-                  text-align: center;
-                  height: 40px;
-                  width: 80%;
-                  margin-right: 10%;
-                  
-                "
-              >
-                {{ item.description }}
-              </p>
-              <!-- <a
-              :href="'services/' + item.slug"
-              style="text-decoration: none; font-size: 12px; margin-right: 10px"
-              >{{ item.button_name }}</a
-            > -->
-            </i>
-          </a>
-
-          <div style="clear: both"></div>
-        </div>
-        <div
-          v-if="cat.template === 2"
-          :style="`
-            text-align: right;
-            max-width: 100%;
-            overflow-x: auto;
-            white-space: nowrap;
-            font-family: 'vazir';
-            direction: rtl;
-            background: ${colors[parseInt(catidx / 2)]};
-            padding-top: 20px;
-            padding-right: 5%
-          `"
-        >
-          <a
-            v-for="(item, idx) in cat.services"
-            class="mycard2"
-            :style="`text-decoration:none;display: inline-block;font-size: 16px; color: #777777; background-color: #fff;  padding: 8px; margin-top: 0px;border-radius: 20px; cursor: pointer; margin:5%; padding: 1.5% ;box-sizing: border-box;`"
-            @click="get(item.id)"
-          >
-            <i v-bind:key="item" style="padding: 10px; margin-top: 20px!important;">
-              <i
-                style="
-                  display: block;
-                  width: 28%;
-                  margin-left: 6%;
-                  
-                  aspect-ratio: 1/1;
-                  border-radius: 50%;
-                  background: lightgrey;
-                  float: left;
-                  margin-top: 20px;
-                "
-                ><img style="width: 100%; aspect-ratio: 1/1" :src="item.get_image" alt=""
-              /></i>
-              <p
-                style="
-                  margin: 2.5%;
-                  text-align: justify;
-                  font-size: 12px;
-                  text-decoration: none;
-                  margin-top: -15px;
-                  white-space: break-spaces;
-                  width: 60%;
-                  text-align: center;
-                  font-family: 'vazir';
-                  height: 40px;
-                  float: right;
-                "
-              >
-              <h6
-              style="
-              font-size: 15px;
-              font-weight: normal;
-                margin-top: 10px;
-                height: 30px;
-                color: black;
-                margin-right: 10px;
-                border-radius: 16px;
-              line-height: 30px;
-                white-space: break-spaces;
-                text-align: center;
-                font-family: 'vazir';
-              "
-              v-html="item.name"
-            ></h6>
-                {{ item.description }}
-              </p>
-              <!-- <a
-              :href="'services/' + item.slug"
-              style="text-decoration: none; font-size: 12px; margin-right: 10px"
-              >{{ item.button_name }}</a
-            > -->
-            </i>
-          </a>
-
-          <div style="clear: both"></div>
-          <br />
-        </div>
-      </div>
-    </div>
-    <div v-else>
-      <div
-        style="
-          text-align: right;
-          max-width: 100%;
-          overflow-x: auto;
-          font-family: 'vazir';
-          direction: rtl;
-        "
-      >
-        <br /><br />
-        <h3 style="font-family: 'vazir'">{{ category.name }}</h3>
-        <a
-          v-for="item in category.services"
-          class="mycard"
-          :style="`text-decoration:none;display: inline-block;font-size: 16px; color: #777777; background-color: #fff;  padding: 8px; margin-top: 0px;border-radius: 5px; cursor: pointer; margin:5%; padding: 1.5% ;box-sizing: border-box;`"
-          @click="get(item.id)"
-        >
-          <i v-bind:key="item" style="padding: 10px">
-            <i
-              style="
-                display: block;
-                width: 60%;
-                margin: auto;
-                margin-bottom: 10px;
-                aspect-ratio: 1/1;
-                border-radius: 50%;
-                background: lightgrey;
-                text-align: center;
-              "
-              ><img
-                style="width: 60%; aspect-ratio: 1/1; margin: 20%"
-                :src="item.get_image"
-                alt=""
-            /></i>
+                  margin-bottom: 5px;
+                " v-html="item.name"></h6>
             <div style="clear: both"></div>
-            <h6
-              v-if="item.highlight"
-              style="
-                margin: 0;
-                height: 30px;
-                margin-right: 10px;
-                font-size: 14px;
-                white-space: break-spaces;
-                text-align: center;
-                font-family: 'vazir';
-              "
-              v-html="
-                item.name.replace(
-                  item.highlight,
-                  `<a style='font-weight:bold; color:black'>` + item.highlight + `</a>`
-                )
-              "
-            ></h6>
-            <h6
-              v-else
-              style="
-                margin: 0;
-                height: 30px;
-                font-weight: bold;
-                color: black;
-                margin-right: 10px;
-                font-size: 14px;
-                white-space: break-spaces;
-                text-align: center;
-                font-family: 'vazir';
-              "
-              v-html="item.name"
-            ></h6>
-            <br />
-            <p
-              style="
-                margin: 5px;
-                text-align: justify;
-                font-size: 12px;
-                text-decoration: none;
-                margin-top: 10px;
-                white-space: break-spaces;
-                width: 98%;
-                margin: auto;
-                text-align: center;
-                font-family: 'vazir';
-                height: 40px;
-              "
-            >
-              {{ item.description }}
-            </p>
+            <i style="
+                  display: block;
+                  width: 54%;
+                  margin: auto;
+                  margin-bottom: 10px;
+                  aspect-ratio: 1/1;
+                  border-radius: 0;
+
+                  text-align: center;
+                "><img style="width: 100%; aspect-ratio: 1/1; border-radius: 0" :src="item.get_image" alt="" /></i>
           </i>
         </a>
 
         <div style="clear: both"></div>
-        <br />
+
       </div>
+    </div>
+    <div style="padding:0 10%" v-if="subject && !sourcesadded">
+      <br />
+      <div class="topright">
+        <h4 style="
+          font-family: 'vazir';
+          font-size: 18px;
+          border-radius: 16px;
+          line-height: 30px;
+          margin-bottom: 0;
+          
+        ">
+          رسانه ها را انتخاب کنید
+        </h4>
+        <h6 style="
+              margin: 0;
+              height: 30px;
+              color: black;
+              font-size: 12px;
+              border-radius: 16px;
+              line-height: 30px;
+              white-space: break-spaces;
+              text-align: right;
+              font-family: 'vazir';
+              margin-bottom: 5px;
+            ">
+          رسانه هایی که میخواهید اخبار آن بررسی شود انتخاب کنید
+        </h6>
+      </div>
+      <div class="bottomleft">
+        <a v-for="(item, idx) in sites"
+          style="text-decoration:none;display: inline-block;font-size: 16px; color: #777777; background-color: #fff;  margin-top: 0px;border-radius: 20px; cursor: pointer; margin:2%; ;box-sizing: border-box;width: 46%;aspect-ratio: 1 / 0.7"
+          @click="addremove(item.id)">
+          <i v-bind:key="item">
+            <i style="
+              display: block;
+              width: 100%;
+              margin: auto;
+              margin-bottom: 10px;
+              height: 70%;
+              border-radius: 0;
+
+              text-align: center;
+            "><img style="width: 100%;height: 100%; aspect-ratio: 1/1; border-radius:  16px 16px 0 0"
+                :src="item.get_image" alt="" /></i>
+
+            <h6 style="
+              margin: 0;
+              height: 30px;
+              color: black;
+              font-size: 14px;
+              border-radius:  0 0 16px 16px;
+              line-height: 30px;
+              white-space: break-spaces;
+              text-align: center;
+              font-family: 'vazir';
+              width: 100%;
+              height: 30%
+              margin-bottom: 5px;
+            " :style="[sources.includes(item.id) ? { 'background': '#64cdc3' } : {}]" v-html="item.name"></h6>
+          </i>
+        </a>
+
+        <div style="clear: both"></div>
+        <button @click="subject = ''" class="btn btn-outline-success"
+          style="border-radius: 10px; width: 48%; margin: 1%; font-size: 14px">
+          بازگشت
+        </button>
+        <button v-if="sources.length" @click="sourcesadded = true" class="btn btn-success"
+          style="border-radius: 10px; width: 48%; margin: 1%; font-size: 13px">
+          ادامه
+        </button>
+        <button v-else disabled @click="sourcesadded = true" class="btn btn-success"
+          style="border-radius: 10px; width: 48%; margin: 1%; font-size: 13px">
+          ادامه
+        </button>
+      </div>
+      <br>
+      <div style="clear: both"></div>
+      <div style=" width: 100%">
+        <div style="clear: both"></div>
+
+
+      </div>
+    </div>
+
+    <div style="padding:0 10%" v-if="subject && sourcesadded">
+      <br />
+      <div class="topright">
+        <h4 style="
+          font-family: 'vazir';
+          font-size: 18px;
+          border-radius: 16px;
+          line-height: 30px;
+          margin-bottom: 0;
+          
+        ">
+          یکی از گزینه ها را انتخاب کنید
+        </h4>
+        <h6 style="
+              margin: 0;
+              height: 30px;
+              color: black;
+              font-size: 12px;
+              border-radius: 16px;
+              line-height: 30px;
+              white-space: break-spaces;
+              text-align: right;
+              font-family: 'vazir';
+              margin-bottom: 5px;
+            ">
+          خروجی شما بر اساس این انتخاب سفارشی سازی خواهد شد
+        </h6>
+      </div>
+      <div class="bottomleft">
+        <a v-for="(item, idx) in subs"
+          style="text-decoration:none;display: inline-block;font-size: 16px; color: #777777; background-color: #fff;  margin-top: 0px;border-radius: 20px; cursor: pointer; margin:2%; ;box-sizing: border-box;width: 46%;aspect-ratio: 1 / 0.7"
+          @click="get(item.id)">
+          <i v-bind:key="item">
+            <i style="
+              display: block;
+              width: 100%;
+              margin: auto;
+              margin-bottom: 10px;
+              height: 100%;
+              border-radius: 0;
+
+              text-align: center;
+            "><img
+                style="width: 50%;aspect-ratio: 1/1' ; margin: 12% 25%; aspect-ratio: 1/1; border-radius:  16px 16px 0 0"
+                :src="item.get_image" alt="" /></i>
+
+            <h6 style="
+              margin: 0;
+              height: 30px;
+              color: black;
+              font-size: 14px;
+              border-radius:  0 0 16px 16px;
+              line-height: 30px;
+              white-space: break-spaces;
+              text-align: center;
+              font-family: 'vazir';
+              width: 100%;
+              height: 30%
+              margin-bottom: 5px;
+            " :style="[sources.includes(item.id) ? { 'background': '#64cdc3' } : {}]" v-html="item.name"></h6>
+          </i>
+        </a>
+      </div>
+
+      <div style="clear: both"></div>
+      <br>
     </div>
   </div>
   <div style="height: 200px"></div>
@@ -297,30 +231,41 @@ export default {
   },
   mounted() {
     this.get_categories();
+    this.get_sites();
+    this.get_subs();
   },
   data() {
     return {
       services: [],
+      sourcesadded: false,
+      subject: "",
       categories: [],
       occasions: "",
+      subs: [],
+      sources: [],
+      sites: [],
       category: "",
       olength: false,
       colors: ["#82ccfb", "#9958b8", "#b3dcf3", "#ecd6f6"],
     };
   },
   methods: {
+    addremove(id) {
+      if (this.sources.includes(id)) { this.sources.splice(this.sources.indexOf(id), 1) } else { this.sources.push(id) }
+    },
     async get(id) {
       this.$store.state.isLoading = true;
       await axios
-        .get(`news-services/${id}`)
+        .put(`news-services`, { sources: this.sources, subject: this.subject, sub: id })
         .then((response) => response.data)
         .then((response) => {
           this.result = response;
-          this.$router.push(this.$route.go || `/news-services/${response}`);
-        }).catch(()=>{
+          this.$router.push(this.$route.go || `/news-result/${response}`);
+        })
+        .catch(() => {
           setTimeout(() => {
-            this.get()
-          }, 1000);
+            this.get(id);
+          }, 5000);
         });
     },
     async get_occasions() {
@@ -344,7 +289,24 @@ export default {
         .get("news-categories")
         .then((response) => response.data)
         .then((response) => {
+          console.log(response)
           this.categories = response;
+        });
+    },
+    async get_sites() {
+      await axios
+        .get("newssites")
+        .then((response) => response.data)
+        .then((response) => {
+          this.sites = response;
+        });
+    },
+    async get_subs() {
+      await axios
+        .get("news-sub-services")
+        .then((response) => response.data)
+        .then((response) => {
+          this.subs = response;
         });
     },
   },
@@ -353,11 +315,12 @@ export default {
 <style>
 .mycard {
   box-sizing: border-box;
-  width: 175px;
-  height: 235px;
+  width: 31%;
+  margin: 1%;
+  aspect-ratio: 1/1;
   background: rgba(217, 217, 217, 0.58);
   border: 1px solid white;
-  
+
   backdrop-filter: blur(6px);
   border-radius: 17px;
   text-align: center;
@@ -382,11 +345,12 @@ export default {
 
 .mycard2 {
   box-sizing: border-box;
-  width: 260px;
-  height: 128px;
+  width: 48%;
+  margin: 1%;
+  aspect-ratio: 3/1;
   background: rgba(217, 217, 217, 0.58);
   border: 1px solid white;
-  
+
   backdrop-filter: blur(6px);
   border-radius: 17px;
   text-align: center;
@@ -414,7 +378,7 @@ export default {
   height: 80px;
   background: rgba(217, 217, 217, 0.58);
   border: 1px solid white;
-  
+
   backdrop-filter: blur(6px);
   border-radius: 17px;
   text-align: center;

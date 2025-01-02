@@ -1,91 +1,56 @@
 <template>
   <div v-if="level === 1" style="margin: 2.5%">
     <div class="topright">
-      <div
-        style="
-          margin-top: 40px;
+      <div style="
+          
           width: 24%;
           margin-left: 38%;
           aspect-ratio: 1/1;
           background: white;
           border-radius: 50%;
-        "
-      >
+        ">
         <img style="width: 100%; height: 100%" src="/img/myicons/page-1.png" alt="" />
       </div>
       <br />
-      <h6 style="font-weight: bolder">شروع شخصیسازی با اطلاعات اولیه</h6>
-      <p style="font-size: 10px">این اطالعات برای ایجاد محتوای دقیق تراستفاده میشود</p>
+      <h6 style="font-weight: bolder">شروع شخصی سازی با اطلاعات اولیه</h6>
+      <p style="font-size: 10px">این اطلاعات برای ایجاد محتوای دقیق تر استفاده میشود</p>
     </div>
     <div class="bottomleft">
       <div class="card-body" style="text-align: left; width: 90%; margin: 5%">
-        <input
-          v-model="name"
-          type="text"
-          class="form-control"
-          style="width: 56%; float: left; font-size: 12px; text-align: center"
-        />
+        <input v-model="name" type="text" class="form-control"
+          style="width: 56%; float: left; font-size: 12px; text-align: center" />
 
-        <div
-          class="form-control"
-          style="float: right; width: 42%; font-size: 12px; text-align: center"
-        >
+        <div class="form-control" style="float: right; width: 42%; font-size: 12px; text-align: center">
           نام و نام خانوادگی
         </div>
 
         <div style="clear: both"></div>
 
         <br />
-        <input
-          autocomplete="false"
-          v-model="age"
-          type="number"
-          class="form-control"
-          style="width: 56%; float: left; font-size: 12px; text-align: center"
-        />
-        <div
-          class="form-control"
-          style="float: right; width: 42%; font-size: 12px; text-align: center"
-        >
+        <input autocomplete="false" v-model="age" type="number" class="form-control"
+          style="width: 56%; float: left; font-size: 12px; text-align: center" />
+        <div class="form-control" style="float: right; width: 42%; font-size: 12px; text-align: center">
           سن شما
         </div>
 
         <div style="clear: both"></div>
         <br />
-        <input
-          v-model="mobile"
-          type="number"
-          class="form-control"
-          style="width: 56%; float: left; font-size: 12px; text-align: center"
-        />
-        <div
-          class="form-control"
-          style="float: right; width: 42%; font-size: 12px; text-align: center"
-        >
+        <input v-model="mobile" type="number" class="form-control"
+          style="width: 56%; float: left; font-size: 12px; text-align: center" />
+        <div class="form-control" style="float: right; width: 42%; font-size: 12px; text-align: center">
           شماره تماس
         </div>
         <br /><br />
 
-        <input
-          v-model="password"
-          type="password"
-          class="form-control"
-          style="width: 56%; float: left; font-size: 12px; text-align: center"
-        />
-        <div
-          class="form-control"
-          style="float: right; width: 42%; font-size: 12px; text-align: center"
-        >
+        <input v-model="password" type="password" class="form-control"
+          style="width: 56%; float: left; font-size: 12px; text-align: center" />
+        <div class="form-control" style="float: right; width: 42%; font-size: 12px; text-align: center">
           کلمه عبور
         </div>
 
         <div style="clear: both"></div>
         <br /><br />
-        <button
-          style="border-radius: 0"
-          @click="level = level + 1"
-          class="btn btn-success form-control"
-        >
+        <button style="border-radius: 0" @click="level = level + 1" class="btn btn-success form-control">
           ثبت نام و ادامه فرایند
         </button>
         <p style="text-align: right; margin-top: 14px; text-align: center">
@@ -104,16 +69,14 @@
 
   <div v-if="level === 2" style="margin: 2.5%">
     <div class="topright">
-      <div
-        style="
-          margin-top: 40px;
+      <div style="
+          
           width: 24%;
           margin-left: 38%;
           aspect-ratio: 1/1;
           background: white;
           border-radius: 50%;
-        "
-      >
+        ">
         <img style="width: 100%; height: 100%" src="/img/myicons/page-2.png" alt="" />
       </div>
       <br />
@@ -124,52 +87,32 @@
     </div>
     <div class="bottomleft">
       <div class="card-body" style="text-align: left; width: 90%; margin: 5%">
-        <div
-          @click="tone = 1"
-          class="form-control"
-          style="float: right; width: 100%; font-size: 12px; text-align: center"
-          :class="[tone === 1 ? 'active' : '']"
-        >
+        <div @click="l1 = 1" class="form-control" style="float: right; width: 100%; font-size: 12px; text-align: center"
+          :class="[l1 === 1 ? 'active' : '']">
           (مانند پیامک) کوتاه و سریع
         </div>
         <br /><br />
-        <div
-          @click="tone = 2"
-          class="form-control"
-          style="float: right; width: 100%; font-size: 12px; text-align: center"
-          :class="[tone === 2 ? 'active' : '']"
-        >
+        <div @click="l1 = 2" class="form-control" style="float: right; width: 100%; font-size: 12px; text-align: center"
+          :class="[l1 === 2 ? 'active' : '']">
           (مانند مقاله) توضیحی و کامل
         </div>
         <br /><br />
-        <div
-          @click="tone = 3"
-          class="form-control"
-          style="float: right; width: 100%; font-size: 12px; text-align: center"
-          :class="[tone === 3 ? 'active' : '']"
-        >
+        <div @click="l1 = 3" class="form-control" style="float: right; width: 100%; font-size: 12px; text-align: center"
+          :class="[l1 === 3 ? 'active' : '']">
           (مانند پست) خالصه و کاربردی
         </div>
         <br /><br />
-        <div
-          @click="tone = 4"
-          class="form-control"
-          style="float: right; width: 100%; font-size: 12px; text-align: center"
-          :class="[tone === 4 ? 'active' : '']"
-        >
+        <div @click="l1 = 4" class="form-control" style="float: right; width: 100%; font-size: 12px; text-align: center"
+          :class="[l1 === 4 ? 'active' : '']">
           تمامی موارد
         </div>
         <br /><br /><br /><br />
 
-        <button
-          style="border-radius: 0; width: 46%; margin: 2%; float: right"
-          @click="level = level + 1"
-          class="btn btn-success form-control"
-        >
+        <button style="border-radius: 0; width: 46%; margin: 2%; float: right" @click="level = level + 1"
+          class="btn btn-success form-control">
           ادامه
         </button>
-        <button
-          style="
+        <button style="
             border-radius: 0;
             width: 46%;
             margin: 2%;
@@ -177,10 +120,7 @@
             background: white !important;
             color: #2dca67;
             box-sizing: border-box;
-          "
-          @click="level = level - 1"
-          class="btn btn-success form-control"
-        >
+          " @click="level = level - 1" class="btn btn-success form-control">
           بازگشت
         </button>
         <div style="clear: both"></div>
@@ -197,16 +137,14 @@
 
   <div v-if="level === 3" style="margin: 2.5%">
     <div class="topright">
-      <div
-        style="
-          margin-top: 40px;
+      <div style="
+          
           width: 24%;
           margin-left: 38%;
           aspect-ratio: 1/1;
           background: white;
           border-radius: 50%;
-        "
-      >
+        ">
         <img style="width: 100%; height: 100%" src="/img/myicons/page-3.png" alt="" />
       </div>
       <br />
@@ -215,52 +153,32 @@
     </div>
     <div class="bottomleft">
       <div class="card-body" style="text-align: left; width: 90%; margin: 5%">
-        <div
-          @click="tone = 1"
-          class="form-control"
-          style="float: right; width: 100%; font-size: 12px; text-align: center"
-          :class="[tone === 1 ? 'active' : '']"
-        >
+        <div @click="l2 = 1" class="form-control" style="float: right; width: 100%; font-size: 12px; text-align: center"
+          :class="[l2 === 1 ? 'active' : '']">
           محتوای شبکه های اجتماعی
         </div>
         <br /><br />
-        <div
-          @click="tone = 2"
-          class="form-control"
-          style="float: right; width: 100%; font-size: 12px; text-align: center"
-          :class="[tone === 2 ? 'active' : '']"
-        >
+        <div @click="l2 = 2" class="form-control" style="float: right; width: 100%; font-size: 12px; text-align: center"
+          :class="[l2 === 2 ? 'active' : '']">
           تحلیل ها و مقالات تخصصی
         </div>
         <br /><br />
-        <div
-          @click="tone = 3"
-          class="form-control"
-          style="float: right; width: 100%; font-size: 12px; text-align: center"
-          :class="[tone === 3 ? 'active' : '']"
-        >
+        <div @click="l2 = 3" class="form-control" style="float: right; width: 100%; font-size: 12px; text-align: center"
+          :class="[l2 === 3 ? 'active' : '']">
           نامه ها و مکاتبات رسمی
         </div>
         <br /><br />
-        <div
-          @click="tone = 4"
-          class="form-control"
-          style="float: right; width: 100%; font-size: 12px; text-align: center"
-          :class="[tone === 4 ? 'active' : '']"
-        >
+        <div @click="l2 = 4" class="form-control" style="float: right; width: 100%; font-size: 12px; text-align: center"
+          :class="[l2 === 4 ? 'active' : '']">
           تمامی موارد
         </div>
         <br /><br /><br /><br />
 
-        <button
-          style="border-radius: 0; width: 46%; margin: 2%; float: right"
-          @click="level = level + 1"
-          class="btn btn-success form-control"
-        >
+        <button style="border-radius: 0; width: 46%; margin: 2%; float: right" @click="level = level + 1"
+          class="btn btn-success form-control">
           ادامه
         </button>
-        <button
-          style="
+        <button style="
             border-radius: 0;
             width: 46%;
             margin: 2%;
@@ -268,10 +186,7 @@
             background: white !important;
             color: #2dca67;
             box-sizing: border-box;
-          "
-          @click="level = level - 1"
-          class="btn btn-success form-control"
-        >
+          " @click="level = level - 1" class="btn btn-success form-control">
           بازگشت
         </button>
         <div style="clear: both"></div>
@@ -287,16 +202,14 @@
   </div>
   <div v-if="level === 4" style="margin: 2.5%">
     <div class="topright">
-      <div
-        style="
-          margin-top: 40px;
+      <div style="
+          
           width: 24%;
           margin-left: 38%;
           aspect-ratio: 1/1;
           background: white;
           border-radius: 50%;
-        "
-      >
+        ">
         <img style="width: 100%; height: 100%" src="/img/myicons/page-4.png" alt="" />
       </div>
       <br />
@@ -307,52 +220,32 @@
     </div>
     <div class="bottomleft">
       <div class="card-body" style="text-align: left; width: 90%; margin: 5%">
-        <div
-          @click="tone = 1"
-          class="form-control"
-          style="float: right; width: 100%; font-size: 12px; text-align: center"
-          :class="[tone === 1 ? 'active' : '']"
-        >
+        <div @click="l3 = 1" class="form-control" style="float: right; width: 100%; font-size: 12px; text-align: center"
+          :class="[l3 === 1 ? 'active' : '']">
           ارسال محتوا هر روز
         </div>
         <br /><br />
-        <div
-          @click="tone = 2"
-          class="form-control"
-          style="float: right; width: 100%; font-size: 12px; text-align: center"
-          :class="[tone === 2 ? 'active' : '']"
-        >
+        <div @click="l3 = 2" class="form-control" style="float: right; width: 100%; font-size: 12px; text-align: center"
+          :class="[l3 === 2 ? 'active' : '']">
           ارسال محتوا یکبار در هفته
         </div>
         <br /><br />
-        <div
-          @click="tone = 3"
-          class="form-control"
-          style="float: right; width: 100%; font-size: 12px; text-align: center"
-          :class="[tone === 3 ? 'active' : '']"
-        >
+        <div @click="l3 = 3" class="form-control" style="float: right; width: 100%; font-size: 12px; text-align: center"
+          :class="[l3 === 3 ? 'active' : '']">
           ارسال محتوا در بازه های ماهانه
         </div>
         <br /><br />
-        <div
-          @click="tone = 4"
-          class="form-control"
-          style="float: right; width: 100%; font-size: 12px; text-align: center"
-          :class="[tone === 4 ? 'active' : '']"
-        >
+        <div @click="l3 = 4" class="form-control" style="float: right; width: 100%; font-size: 12px; text-align: center"
+          :class="[l3 === 4 ? 'active' : '']">
           انتخاب همه موارد
         </div>
         <br /><br /><br /><br />
 
-        <button
-          style="border-radius: 0; width: 46%; margin: 2%; float: right"
-          @click="level = level + 1"
-          class="btn btn-success form-control"
-        >
+        <button style="border-radius: 0; width: 46%; margin: 2%; float: right" @click="level = level + 1"
+          class="btn btn-success form-control">
           تایید زمانبندی
         </button>
-        <button
-          style="
+        <button style="
             border-radius: 0;
             width: 46%;
             margin: 2%;
@@ -360,10 +253,7 @@
             background: white !important;
             color: #2dca67;
             box-sizing: border-box;
-          "
-          @click="level = level - 1"
-          class="btn btn-success form-control"
-        >
+          " @click="level = level - 1" class="btn btn-success form-control">
           بازگشت
         </button>
         <div style="clear: both"></div>
@@ -372,34 +262,34 @@
     <br />
   </div>
 
-  <div v-if="level === 5" style="margin: 2.5%">
-    <div class="bottomleft">
+  <div v-if="level === 5" style="margin: 2.5% 25%;width: 50%;">
+    <div class="">
       <div style="margin-top: 0px; width: 100%"></div>
-      <br />
-      <h6 style="font-weight: bolder">خوش آمدید</h6>
-      <p style="font-size: 10px">!به سامانه هوشمندتولید محتوا</p>
+      <br /><br><br><br><br><br>
+     
     </div>
     <div style="clear: both"></div>
 
-    <div class="topright">
+    <div class="">
       <div class="spinner">
         <div></div>
         <div></div>
         <div></div>
         <div></div>
-      </div>
+      </div><br><br>
+
+      <h6 style="font-weight: bolder"> به اکسیژن خوش آمدید</h6>
+      <p style="font-size: 10px">!به سامانه هوشمندتولید محتوا</p>
+      <a style="border-radius: 0; width: 96%; margin: 2%; float: right" href="/services"
+        class="btn btn-success form-control">
+        شروع
+      </a>
     </div>
-    <div class="bottomleft" stlye="margin: 0; padding: 0">
+    <div class="topright" stlye="margin: 0; padding: 0">
       <div class="card-body" style="width: 90%; margin: 5%">
         <p style="font-size: 10px">!حالا وقتش رسیده که تولید محتوای خود را شروع کنید</p>
 
-        <button
-          style="border-radius: 0; width: 96%; margin: 2%; float: right"
-          @click="lsubmit()"
-          class="btn btn-success form-control"
-        >
-          شروع
-        </button>
+
 
         <div style="clear: both"></div>
       </div>
@@ -418,13 +308,17 @@ export default {
   components: {
     navbar,
   },
-  mounted() {},
+  mounted() { },
   data() {
     return {
       mobile: "",
       password: "",
       result: "",
       level: 1,
+      l1: '',
+      l2: '',
+      l3: '',
+      l4: ''
     };
   },
   methods: {
@@ -536,5 +430,9 @@ export default {
   .spinner {
     margin-top: -60px;
   }
+}
+
+.active {
+  color: red !important
 }
 </style>

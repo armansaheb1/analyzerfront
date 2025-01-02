@@ -1,16 +1,14 @@
 <template>
   <div v-if="level === 1" style="margin: 2.5%">
     <div class="topright">
-      <div
-        style="
-          margin-top: 80px;
+      <div style="
+          margin-top: 0;
           width: 24%;
           margin-left: 38%;
           aspect-ratio: 1/1;
           background: white;
           border-radius: 50%;
-        "
-      >
+        ">
         <img style="width: 100%; height: 100%" src="/img/myicons/page-1.png" alt="" />
       </div>
       <br />
@@ -18,33 +16,19 @@
     </div>
     <div class="bottomleft">
       <div class="card-body" style="text-align: left; width: 90%; margin: 5%">
-        <input
-          v-model="mobile"
-          type="text"
-          class="form-control"
-          style="width: 56%; float: left; font-size: 12px; text-align: center"
-        />
+        <input v-model="mobile" type="text" class="form-control"
+          style="width: 56%; float: left; font-size: 12px; text-align: center" />
 
-        <div
-          class="form-control"
-          style="float: right; width: 42%; font-size: 12px; text-align: center"
-        >
+        <div class="form-control" style="float: right; width: 42%; font-size: 12px; text-align: center">
           شماره تماس
         </div>
 
         <div style="clear: both"></div>
 
         <br />
-        <input
-          v-model="password"
-          type="password"
-          class="form-control"
-          style="width: 56%; float: left; font-size: 12px; text-align: center"
-        />
-        <div
-          class="form-control"
-          style="float: right; width: 42%; font-size: 12px; text-align: center"
-        >
+        <input v-model="password" type="password" class="form-control"
+          style="width: 56%; float: left; font-size: 12px; text-align: center" />
+        <div class="form-control" style="float: right; width: 42%; font-size: 12px; text-align: center">
           کلمه عبور
         </div>
 
@@ -52,11 +36,7 @@
 
         <div style="clear: both"></div>
         <br /><br /><br /><br />
-        <button
-          style="border-radius: 0"
-          @click="submit()"
-          class="btn btn-success form-control"
-        >
+        <button style="border-radius: 0" @click="submit()" class="btn btn-success form-control">
           ورود
         </button>
         <p style="text-align: right; margin-top: 14px; text-align: center">
@@ -84,7 +64,7 @@ export default {
   components: {
     navbar,
   },
-  mounted() {},
+  mounted() { },
   data() {
     return {
       mobile: "",
@@ -110,7 +90,7 @@ export default {
           this.$store.state.loginpopmini = false;
           this.$store.state.registerpop = false;
           axios.defaults.headers.common["Authorization"] = "Token " + token;
-          this.$router.push(this.$route.go || "/");
+          this.$router.push(this.$route.go || "/services");
         });
     },
   },

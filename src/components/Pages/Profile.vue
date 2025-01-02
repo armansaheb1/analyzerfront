@@ -1,22 +1,5 @@
 <template>
-  <div style="width: 100%; height: 40px; background: white"></div>
-  <div
-    style="
-      width: 100%;
-      height: 150px;
-      background-color: white;
-      border-radius: 0 0 35px 35px;
-      padding: 0;
-    "
-  >
-    <div style="width: 35%; float: left">
-      <img src="/bot.png" style="height: 130px; margin: 10px" alt="" />
-    </div>
-    <div style="width: 50%; float: right; text-align: right; margin: 35px 25px">
-      <h5 style="font-weight: bold; font-family: 'vazir'; font-size: 16px">پروفایل</h5>
-      <p style="font-family: 'vazir'; font-size: 12px"></p>
-    </div>
-  </div>
+
   <div class="card-body">
     <div class="card">
       <div class="card-header">تغییر کلمه عبور</div>
